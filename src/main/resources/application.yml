@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Online Auction Site
+    name: ${APP_NAME}
   jpa:
     hibernate:
       ddl-auto: create
@@ -9,9 +9,9 @@ spring:
       repositories:
         enabled: true # Whether to enable JPA repositories.
   datasource:
-    url: jdbc:mysql://localhost:3306/db_example
-    username: springuser
-    password: ThePassword
+    url: jdbc:${DB_PROVIDER}://${DB_HOST}:${DB_PORT}/${DB_DATABASE}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
 
   devtools:
     livereload:
@@ -30,7 +30,7 @@ server:
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript
   http2:
     enabled: true
-  port: 8080
+  port: ${PORT}
 
 management:
   endpoints:
@@ -42,11 +42,18 @@ management:
         allowed-origins: localhost # Comma-separated list of origins to allow. '*' allows all origins. When not set, CORS support is disabled.
 #        exposed-headers: # Comma-separated list of headers to include in a response.
         max-age: 1800s # How long the response from a pre-flight request can be cached by clients. If a duration suffix is not specified, seconds will be used.
-
-ring:
-  security:
-    user:
-      name: user
-      password: password
-      roles: USER
-
+        
+security:
+  oauth2:
+    client:
+      clientId: ${GOOGLE_API_KEY}
+      clientSecret: ${GOOGLE_API_SECRET}
+      accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+      userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+      tokenName: oauth_token
+      authenticationScheme: query
+      clientAuthenticationScheme: form
+      scope: profile
+    resource:
+      userInfoUri: https://www.googleapis.com/userinfo/v2/me
+      preferTokenInfo: false
