@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: Online Auction Site
+  jpa:
+    hibernate:
+      ddl-auto: create
+  data:
+    jpa:
+      repositories:
+        enabled: true # Whether to enable JPA repositories.
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_example
+    username: springuser
+    password: ThePassword
+
+  devtools:
+    livereload:
+      enabled: true # Whether to enable a livereload.com-compatible server.   
+      
+  security:
+    user:
+      name: user
+      password: password 
+  sendgrid:
+    api-key: ${SENDGRID_API_KEY}
+      
+server:
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript
+  http2:
+    enabled: true
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      cors:
+        allow-credentials: true
+        allowed-headers: '*' # Comma-separated list of headers to allow in a request. '*' allows all headers.
+        allowed-methods: '*' # Comma-separated list of methods to allow. '*' allows all methods. When not set, defaults to GET.
+        allowed-origins: localhost # Comma-separated list of origins to allow. '*' allows all origins. When not set, CORS support is disabled.
+#        exposed-headers: # Comma-separated list of headers to include in a response.
+        max-age: 1800s # How long the response from a pre-flight request can be cached by clients. If a duration suffix is not specified, seconds will be used.
+
+ring:
+  security:
+    user:
+      name: user
+      password: password
+      roles: USER
+
