@@ -38,12 +38,12 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-integration')
 	compile('org.springframework.boot:spring-boot-starter-mail')
 	compile('org.springframework.boot:spring-boot-starter-quartz')
-	compile('org.springframework.boot:spring-boot-starter-security')
+	//compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-webflux')
-	compile('de.codecentric:spring-boot-admin-starter-client')
-	compile('de.codecentric:spring-boot-admin-starter-server')
-	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+	//compile('de.codecentric:spring-boot-admin-starter-client')
+	//compile('de.codecentric:spring-boot-admin-starter-server')
+	//compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 	compile('org.springframework.data:spring-data-rest-hal-browser')
 	compile('org.springframework.session:spring-session-core')
 	runtime('org.springframework.boot:spring-boot-devtools')
@@ -53,7 +53,7 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')
 	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
-	testCompile('org.springframework.security:spring-security-test')
+	//testCompile('org.springframework.security:spring-security-test')
 }
 
 dependencyManagement {
