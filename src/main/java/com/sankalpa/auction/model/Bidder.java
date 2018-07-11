@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -15,7 +12,7 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class Bidder extends User {
 
-    @OneToMany(mappedBy = "bidder", targetEntity = Bid.class)
+    @OneToMany(mappedBy = "bidder", targetEntity = Bid.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Bid> bids;
 
     @ManyToMany(targetEntity = Auction.class)

@@ -16,8 +16,8 @@ public class State {
 
     private String stateName;
 
-    @OneToMany
-    private List<Item> items;
+    @OneToOne
+    private Item item;
 
     protected State(){}
 
@@ -30,18 +30,18 @@ public class State {
         this.stateName = stateName;
     }
 
-    public State(int stateId, String stateName, List<Item> items) {
+    public State(int stateId, String stateName, Item item) {
         this.stateId = stateId;
         this.stateName = stateName;
-        this.items = items;
+        this.item = item;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public Item getItem() {
+        return item;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public int getStateId() {

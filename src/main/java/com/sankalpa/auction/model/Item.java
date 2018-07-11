@@ -20,7 +20,7 @@ public class Item {
     private double startingBid;
     private String image;           // image stores the location of image on disk
 
-    @ManyToOne
+    @OneToOne
     private State itemState;
 
     @ManyToMany
@@ -33,7 +33,7 @@ public class Item {
     @ManyToOne
     private Auction auction;
 
-    @OneToMany(mappedBy = "item", targetEntity = Bid.class)
+    @OneToMany(mappedBy = "item", targetEntity = Bid.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Bid> bids;
 
     protected Item(){}

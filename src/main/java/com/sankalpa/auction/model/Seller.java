@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -16,10 +14,10 @@ public class Seller extends User {
 
     // TODO: add relationships with items, events
 
-    @OneToMany(mappedBy = "seller", targetEntity = Item.class)
+    @OneToMany(mappedBy = "seller", targetEntity = Item.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Item> items;
 
-    @OneToMany(mappedBy = "seller", targetEntity = Auction.class)
+    @OneToMany(mappedBy = "seller", targetEntity = Auction.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Auction> auctions;
 
     public Seller(){}
