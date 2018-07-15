@@ -27,10 +27,10 @@ public class Auction {
     @ManyToOne
     private Seller seller;
 
-    @OneToMany(mappedBy = "auction", targetEntity = Bid.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "auction", targetEntity = Bid.class, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Bid> bids;
 
-    @OneToMany(mappedBy = "auction", targetEntity = Item.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "auction", targetEntity = Item.class, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Item> items;
 
     @ManyToMany(targetEntity = Bidder.class)

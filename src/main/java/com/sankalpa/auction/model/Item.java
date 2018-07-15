@@ -33,7 +33,7 @@ public class Item {
     @ManyToOne
     private Auction auction;
 
-    @OneToMany(mappedBy = "item", targetEntity = Bid.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "item", targetEntity = Bid.class, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Bid> bids;
 
     protected Item(){}

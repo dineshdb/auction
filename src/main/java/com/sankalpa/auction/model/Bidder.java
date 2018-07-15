@@ -12,7 +12,7 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class Bidder extends User {
 
-    @OneToMany(mappedBy = "bidder", targetEntity = Bid.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bidder", targetEntity = Bid.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Bid> bids;
 
     @ManyToMany(targetEntity = Auction.class)

@@ -14,10 +14,10 @@ public class Seller extends User {
 
     // TODO: add relationships with items, events
 
-    @OneToMany(mappedBy = "seller", targetEntity = Item.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "seller", targetEntity = Item.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Item> items;
 
-    @OneToMany(mappedBy = "seller", targetEntity = Auction.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "seller", targetEntity = Auction.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Auction> auctions;
 
     public Seller(){}
@@ -30,11 +30,13 @@ public class Seller extends User {
         super(userId, userEmail, userPassword);
     }
 
-    public Seller(String userEmail, String userPassword, String userName, String userPhone, String userAddress, String image) {
+    public Seller(String userEmail, String userPassword, String userName, String userPhone, String userAddress,
+                  String image) {
         super(userEmail, userPassword, userName, userPhone, userAddress, image);
     }
 
-    public Seller(Long userId, String userEmail, String userPassword, String userName, String userPhone, String userAddress, String image) {
+    public Seller(Long userId, String userEmail, String userPassword, String userName, String userPhone,
+                  String userAddress, String image) {
         super(userId, userEmail, userPassword, userName, userPhone, userAddress, image);
     }
 
