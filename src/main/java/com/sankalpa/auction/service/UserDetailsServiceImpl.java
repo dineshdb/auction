@@ -1,4 +1,4 @@
-package com.sankalpa.auction.model;
+package com.sankalpa.auction.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
