@@ -2,7 +2,6 @@ package com.sankalpa.auction.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 
 @Entity
@@ -88,11 +87,11 @@ public class User {
         this.userEmail = userEmail;
     }
 
-    public String getUserPassword() {
+    public String getPassword() {
         return userPassword;
     }
 
-    public void setUserPassword(String userPassword) {
+    public void setPassword(String userPassword) {
         this.userPassword = userPassword;
     }
 
