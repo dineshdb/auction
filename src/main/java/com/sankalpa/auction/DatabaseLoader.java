@@ -4,6 +4,7 @@ import com.sankalpa.auction.model.*;
 import com.sankalpa.auction.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,6 +22,9 @@ public class DatabaseLoader implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -37,8 +41,7 @@ public class DatabaseLoader implements CommandLineRunner {
         categoryRepository.save(new Category("Automobile"));
         categoryRepository.save(new Category("Jewellery"));
 
-//        adminRepository.save(new Admin("admin", "admin"));
-//
-//        userRepository.save(new User("atosh502@gmail.com", "passw0rd"));
+        adminRepository.save(new Admin("admin", passwordEncoder.encode("admin")));
+        userRepository.save(new User("atosh502@gmail.com", passwordEncoder.encode("passw0rd")));
     }
 }
