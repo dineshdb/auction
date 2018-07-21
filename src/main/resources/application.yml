@@ -23,6 +23,16 @@ spring:
       password: password 
   sendgrid:
     api-key: ${SENDGRID_API_KEY}
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+file:
+  upload-dir: ./uploads
       
 server:
   compression:
