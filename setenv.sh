@@ -1,0 +1,12 @@
+export APP_NAME="Online Auction System"
+export DB_PROVIDER=mysql
+export DB_HOST=localhost
+export DB_PORT=3306
+export DB_DATABASE=auction_db
+export DB_USER=auction_user
+export DB_PASSWORD=ThePassword
+export PORT=8080
+export SENDGRID_API_KEY=Pt2F8PqIQfeSx1GIoZCk0w
+export SENDGRID_API_SECRET=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
+export GOOGLE_API_KEY=612731025295-qai62u7v6lfksjmmgsdejlfb25bdsear.apps.googleusercontent.com
+export GOOGLE_API_SECRET=Z5Yctb2W224UuN2KlS6wFYvo 
