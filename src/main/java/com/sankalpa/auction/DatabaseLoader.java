@@ -37,8 +37,8 @@ public class DatabaseLoader implements CommandLineRunner {
         categoryRepository.save(new Category("Automobile"));
         categoryRepository.save(new Category("Jewellery"));
 
-        adminRepository.save(new Admin("admin", "admin"));
-
-        userRepository.save(new User("aashutoshpoudyal@gmail.com", "passw0rd"));
+//        adminRepository.save(new Admin("admin", "admin"));
+//
+//        userRepository.save(new User("atosh502@gmail.com", "passw0rd"));
     }
 }

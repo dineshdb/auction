@@ -1,13 +1,11 @@
 package com.sankalpa.auction.controller;
 
 import com.sankalpa.auction.model.User;
+import com.sankalpa.auction.repository.UserRepository;
 import com.sankalpa.auction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import com.sankalpa.auction.model.User;
-import com.sankalpa.auction.repo.UserRepo;
 
 import java.util.List;
 
@@ -15,16 +13,11 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private UserRepo userRepo;
+    @Autowired
     private BCryptPasswordEncoder passwdEncoder;
 
     @Autowired
     private UserService userService;
-
-    public UserController(UserRepo applicationUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepo = applicationUserRepository;
-        this.passwdEncoder = bCryptPasswordEncoder;
-    }
 
     @GetMapping("/")
     public @ResponseBody List<User> getAllUsers(){
@@ -52,8 +45,8 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public User signUp(@RequestBody User user) {
-        user.setPassword(passwdEncoder.encode(user.getPassword()));
-        return userRepo.save(user);
+    public @ResponseBody User signUp(@RequestBody User newUser) {
+        newUser.setPassword(passwdEncoder.encode(newUser.getUserPassword()));
+        return userService.addUser(newUser);
     }
 }

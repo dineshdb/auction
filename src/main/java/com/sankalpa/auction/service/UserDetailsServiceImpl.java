@@ -1,5 +1,8 @@
 package com.sankalpa.auction.service;
 
+import com.sankalpa.auction.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -7,21 +10,20 @@ import org.springframework.stereotype.Service;
 
 import static java.util.Collections.emptyList;
 import com.sankalpa.auction.model.User;
-import com.sankalpa.auction.repo.UserRepo;
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private UserRepo applicationUserRepository;
 
-    public UserDetailsServiceImpl(UserRepo applicationUserRepository) {
-        this.applicationUserRepository = applicationUserRepository;
-    }
+    @Autowired
+    private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User applicationUser = applicationUserRepository.findByUserName(username);
-        if (applicationUser == null) {
-            throw new UsernameNotFoundException(username);
+    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+        User user = userService.findByUserEmail(userEmail);
+        if (user == null) {
+            throw new UsernameNotFoundException(userEmail);
         }
-        return new org.springframework.security.core.userdetails.User(applicationUser.getUserName(), applicationUser.getPassword(), emptyList());
+        return new org.springframework.security.core.userdetails.User(user.getUserEmail(),
+                user.getUserPassword(), emptyList());
     }
 }
