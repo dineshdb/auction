@@ -1,3 +1,3 @@
-[submodule "dbms-frontend"]
+[submodule "ecommerce-frontend"]
 	path = frontend
-	url = git@github.com:dineshdb/dbms-frontend.git
+	url = git@github.com:dineshdb/ecommerce-frontend.git
