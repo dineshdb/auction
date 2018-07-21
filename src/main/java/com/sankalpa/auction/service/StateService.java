@@ -1,6 +1,5 @@
 package com.sankalpa.auction.service;
 
-import com.sankalpa.auction.model.Seller;
 import com.sankalpa.auction.model.State;
 import com.sankalpa.auction.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;

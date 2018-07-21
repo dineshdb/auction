@@ -30,7 +30,7 @@ public class Bid {
     private Item item;
 
     @ManyToOne
-    private Bidder bidder;
+    private User bidder;
 
     public Bid(){}
 
@@ -65,11 +65,11 @@ public class Bid {
         this.item = item;
     }
 
-    public Bidder getBidder() {
+    public User getBidder() {
         return bidder;
     }
 
-    public void setBidder(Bidder bidder) {
+    public void setBidder(User bidder) {
         this.bidder = bidder;
     }
 

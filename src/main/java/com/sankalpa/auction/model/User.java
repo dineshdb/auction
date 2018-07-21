@@ -3,10 +3,12 @@ package com.sankalpa.auction.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Inheritance( strategy = InheritanceType.SINGLE_TABLE )
 @DiscriminatorColumn( name = "userRole")
+@DiscriminatorValue(value = "USER")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class User {
 
@@ -24,6 +26,18 @@ public class User {
     private String userPhone;
     private String userAddress;
     private String image;
+
+    @OneToMany(mappedBy = "seller", targetEntity = Item.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Item> items;
+
+    @OneToMany(mappedBy = "seller", targetEntity = Auction.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Auction> auctionsCreated;
+
+    @OneToMany(mappedBy = "bidder", targetEntity = Bid.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Bid> bids;
+
+    @ManyToMany(targetEntity = Auction.class)
+    private List<Auction> auctionsParticipated;
 
     protected User(){}
 
@@ -61,6 +75,46 @@ public class User {
     public String getDiscriminatorValue(){
         DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
         return val == null ? null : val.value();
+    }
+
+    public List<Auction> getAuctionsCreated() {
+        return auctionsCreated;
+    }
+
+    public void setAuctionsCreated(List<Auction> auctionsCreated) {
+        this.auctionsCreated = auctionsCreated;
+    }
+
+    public List<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
+    }
+
+    public List<Auction> getAuctionsParticipated() {
+        return auctionsParticipated;
+    }
+
+    public void setAuctionsParticipated(List<Auction> auctionsParticipated) {
+        this.auctionsParticipated = auctionsParticipated;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public String getImage() {

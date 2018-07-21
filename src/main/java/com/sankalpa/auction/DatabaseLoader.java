@@ -19,10 +19,7 @@ public class DatabaseLoader implements CommandLineRunner {
     private AdminRepository adminRepository;
 
     @Autowired
-    private SellerRepository sellerRepository;
-
-    @Autowired
-    private BidderRepository bidderRepository;
+    private UserRepository userRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -42,7 +39,6 @@ public class DatabaseLoader implements CommandLineRunner {
 
         adminRepository.save(new Admin("admin", "admin"));
 
-        sellerRepository.save(new Seller("aashutoshpoudyal@gmail.com", "passw0rd"));
-        bidderRepository.save(new Bidder("aashutoshpaudyal@gmail.com", "passw0rd"));
+        userRepository.save(new User("aashutoshpoudyal@gmail.com", "passw0rd"));
     }
 }

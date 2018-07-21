@@ -1,7 +1,6 @@
 package com.sankalpa.auction.service;
 
 import com.sankalpa.auction.model.Bid;
-import com.sankalpa.auction.model.Bidder;
 import com.sankalpa.auction.repository.BidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

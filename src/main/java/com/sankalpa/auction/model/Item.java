@@ -20,7 +20,7 @@ public class Item {
     private double startingBid;
     private String image;           // image stores the location of image on disk
 
-    @OneToOne
+    @ManyToOne
     private State itemState;
 
     @ManyToMany
@@ -28,7 +28,7 @@ public class Item {
     private List<Category> itemCategories;
 
     @ManyToOne
-    private Seller seller;
+    private User seller;
 
     @ManyToOne
     private Auction auction;
@@ -69,11 +69,11 @@ public class Item {
         this.auction = auction;
     }
 
-    public Seller getSeller() {
+    public User getSeller() {
         return seller;
     }
 
-    public void setSeller(Seller seller) {
+    public void setSeller(User seller) {
         this.seller = seller;
     }
 

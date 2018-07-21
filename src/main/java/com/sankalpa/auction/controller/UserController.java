@@ -14,15 +14,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-        private UserRepo userRepo;
-        private BCryptPasswordEncoder passwdEncoder;
-        
+
+    private UserRepo userRepo;
+    private BCryptPasswordEncoder passwdEncoder;
 
     @Autowired
     private UserService userService;
 
-    public UserController(UserRepo applicationUserRepository,
-                          BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserController(UserRepo applicationUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepo = applicationUserRepository;
         this.passwdEncoder = bCryptPasswordEncoder;
     }
@@ -51,9 +50,10 @@ public class UserController {
     public void deleteUser(@PathVariable Long userId){
         userService.deleteUser(userId);
     }
+
     @PostMapping("/sign-up")
-    public void signUp(@RequestBody User user) {
+    public User signUp(@RequestBody User user) {
         user.setPassword(passwdEncoder.encode(user.getPassword()));
-        userRepo.save(user);
+        return userRepo.save(user);
     }
 }

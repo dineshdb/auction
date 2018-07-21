@@ -16,8 +16,8 @@ public class State {
 
     private String stateName;
 
-    @OneToOne
-    private Item item;
+    @OneToMany(mappedBy = "itemState", targetEntity = Item.class, fetch = FetchType.LAZY)
+    private List<Item> items;
 
     protected State(){}
 
@@ -30,18 +30,18 @@ public class State {
         this.stateName = stateName;
     }
 
-    public State(int stateId, String stateName, Item item) {
+    public State(int stateId, String stateName, List<Item> items) {
         this.stateId = stateId;
         this.stateName = stateName;
-        this.item = item;
+        this.items = items;
     }
 
-    public Item getItem() {
-        return item;
+    public List<Item> getItem() {
+        return items;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItem(List<Item> items) {
+        this.items = items;
     }
 
     public int getStateId() {

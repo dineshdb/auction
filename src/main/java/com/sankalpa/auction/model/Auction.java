@@ -25,7 +25,7 @@ public class Auction {
     private LocalTime auctionDuration;
 
     @ManyToOne
-    private Seller seller;
+    private User seller;
 
     @OneToMany(mappedBy = "auction", targetEntity = Bid.class, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Bid> bids;
@@ -33,9 +33,9 @@ public class Auction {
     @OneToMany(mappedBy = "auction", targetEntity = Item.class, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Item> items;
 
-    @ManyToMany(targetEntity = Bidder.class)
+    @ManyToMany(targetEntity = User.class)
     @JoinTable(joinColumns = @JoinColumn(name = "auction_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<Bidder> bidders;
+    private List<User> bidders;
 
     public Auction(){}
 
@@ -58,6 +58,34 @@ public class Auction {
         this.auctionDuration = auctionDuration;
     }
 
+    public void setAuctionTime(LocalTime auctionTime) {
+        this.auctionTime = auctionTime;
+    }
+
+    public void setAuctionDate(LocalDate auctionDate) {
+        this.auctionDate = auctionDate;
+    }
+
+    public void setAuctionDuration(LocalTime auctionDuration) {
+        this.auctionDuration = auctionDuration;
+    }
+
+    public User getSeller() {
+        return seller;
+    }
+
+    public void setSeller(User seller) {
+        this.seller = seller;
+    }
+
+    public List<User> getBidders() {
+        return bidders;
+    }
+
+    public void setBidders(List<User> bidders) {
+        this.bidders = bidders;
+    }
+
     public List<Bid> getBids() {
         return bids;
     }
@@ -66,28 +94,12 @@ public class Auction {
         this.bids = bids;
     }
 
-    public List<Bidder> getBidders() {
-        return bidders;
-    }
-
-    public void setBidders(List<Bidder> bidders) {
-        this.bidders = bidders;
-    }
-
     public List<Item> getItems() {
         return items;
     }
 
     public void setItems(List<Item> items) {
         this.items = items;
-    }
-
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
     }
 
     public Long getAuctionId() {

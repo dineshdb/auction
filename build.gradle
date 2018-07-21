@@ -41,7 +41,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-webflux')
-
 	//compile('de.codecentric:spring-boot-admin-starter-client')
 	//compile('de.codecentric:spring-boot-admin-starter-server')
 	//compile('org.springframework.cloud:spring-cloud-starter-oauth2')
