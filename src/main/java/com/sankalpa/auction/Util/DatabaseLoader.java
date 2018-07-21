@@ -1,4 +1,4 @@
-package com.sankalpa.auction;
+package com.sankalpa.auction.Util;
 
 import com.sankalpa.auction.model.*;
 import com.sankalpa.auction.repository.*;
