@@ -1,0 +1,3 @@
+[submodule "ecommerce-frontend"]
+	path = frontend
+	url = git@github.com:dineshdb/ecommerce-frontend.git
