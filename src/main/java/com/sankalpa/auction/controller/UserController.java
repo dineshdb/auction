@@ -1,12 +1,16 @@
 package com.sankalpa.auction.controller;
 
+import com.sankalpa.auction.Util.UserAlreadyExistsException;
 import com.sankalpa.auction.model.User;
 import com.sankalpa.auction.repository.UserRepository;
 import com.sankalpa.auction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @RestController
@@ -45,8 +49,16 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public @ResponseBody User signUp(@RequestBody User newUser) {
-        newUser.setPassword(passwdEncoder.encode(newUser.getUserPassword()));
-        return userService.addUser(newUser);
+    public @ResponseBody String signUp(@RequestBody User newUser) {
+        newUser.setUserPassword(passwdEncoder.encode(newUser.getUserPassword()));
+        // handle exception here
+        try {
+            User user = userService.addUser(newUser);
+            return user.getUserId().toString();
+        } catch (DataIntegrityViolationException e){
+//            throw new UserAlreadyExistsException("A user with email "
+//                    + newUser.getUserEmail() + " already exists.");
+            return "A user with email " + newUser.getUserEmail() + " already exists.";
+        }
     }
 }
