@@ -2,6 +2,7 @@ package com.sankalpa.auction.security;
 
 import com.sankalpa.auction.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sankalpa.auction.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,9 +28,11 @@ import static com.sankalpa.auction.security.SecurityConstants.TOKEN_PREFIX;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
+    private UserService userService;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService) {
         this.authenticationManager = authenticationManager;
+        this.userService = userService;
     }
 
     @Override
@@ -61,5 +65,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
                 .compact();
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+        User user = userService.findByUserEmail(((org.springframework.security.core.userdetails.User)
+                auth.getPrincipal()).getUsername());
+        res.getWriter().write(user.getUserId().toString());
     }
 }
