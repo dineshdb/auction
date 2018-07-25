@@ -67,6 +67,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
         User user = userService.findByUserEmail(((org.springframework.security.core.userdetails.User)
                 auth.getPrincipal()).getUsername());
-        res.getWriter().write(user.getUserId().toString());
+        res.addHeader("userId", user.getUserId().toString());
     }
 }
