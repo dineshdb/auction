@@ -26,9 +26,9 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
-    @PostMapping("/uploadFile/{productId}")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, @PathVariable Long productId) {
-        String fileName = fileStorageService.storeFile(file, productId);
+    @PostMapping("/uploadFile")
+    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+        String fileName = fileStorageService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
