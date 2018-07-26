@@ -16,7 +16,7 @@ public class User {
     @GeneratedValue     // TODO: Tweak the generated value type
     private Long userId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String userEmail;
 
     @Column(nullable = false)

@@ -67,6 +67,39 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8080/users/sign-up",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userEmail\": \"admin\",\n\t\"userPassword\": \"passw0rd\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"sign-up"
+					]
+				},
+				"description": "if the userEmail is already in the database, then a string saying \" A user with email\" + userEmail + \"already exists.\""
+			},
+			"response": []
 		}
 	]
 }
