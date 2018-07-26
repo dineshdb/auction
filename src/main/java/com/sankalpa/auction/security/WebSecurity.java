@@ -1,7 +1,7 @@
 package com.sankalpa.auction.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,9 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.context.annotation.Bean;
-
-import java.util.Arrays;
 
 import static com.sankalpa.auction.security.SecurityConstants.SIGN_UP_URL;
 
@@ -32,6 +29,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers("/live/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
@@ -51,8 +49,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
         config.addAllowedHeader("Authorization");
         config.addExposedHeader("Authorization");
-//	config.addHeader("Access-Control-Expose-Headers", "Authorization");
+        //	config.addHeader("Access-Control-Expose-Headers", "Authorization");
         source.registerCorsConfiguration("/**", config);
         return source;
+    }
+    
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser("admin").password("admin").roles("ADMIN")
+                .and().withUser("user").password("user").roles("USER");;
     }
 }
