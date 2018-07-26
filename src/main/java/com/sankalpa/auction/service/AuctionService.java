@@ -110,6 +110,7 @@ public class AuctionService {
                 }
                 item.setItemCategories(categories);
 
+                item.setAuction(auction);
                 // update the item finally
                 item = itemService.updateItem(item);
                 items.add(item);
