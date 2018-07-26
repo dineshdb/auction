@@ -50,6 +50,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         config.addAllowedHeader("Authorization");
         config.addExposedHeader("Authorization");
         //	config.addHeader("Access-Control-Expose-Headers", "Authorization");
+        config.addAllowedOrigin("*");
         source.registerCorsConfiguration("/**", config);
         return source;
     }
