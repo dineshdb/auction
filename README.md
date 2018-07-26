@@ -1,4 +1,5 @@
 # ecommerce
+[![CircleCI](https://circleci.com/gh/dineshdb/auction.svg?style=svg&circle-token=71fcd4229acc7677621a9c5eed5df401a87d022c)](https://circleci.com/gh/dineshdb/auction)
 Online web based ecommerce system.
 ..
 ## Getting started.
