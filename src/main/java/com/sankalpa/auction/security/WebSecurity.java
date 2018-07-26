@@ -1,5 +1,6 @@
 package com.sankalpa.auction.security;
 
+import com.sankalpa.auction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -14,6 +15,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
@@ -35,7 +41,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/live/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), userService))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -53,11 +59,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         config.addAllowedHeader("Authorization");
         config.addExposedHeader("Authorization");
+//      config.setAllowedOrigins(Collections.singletonList("*"));
+//	    config.addHeader("Access-Control-Expose-Headers", "Authorization");
         config.addAllowedMethod("GET");
         config.addAllowedMethod("POST");
         config.addAllowedMethod("UPDATE");
         config.addAllowedMethod("DELETE");
         config.addAllowedMethod("PUT");
+
         config.addAllowedOrigin("*");
         source.registerCorsConfiguration("/**", config);
         return source;
