@@ -35,10 +35,16 @@ public class AuctionService {
 
     private static final Logger log = LoggerFactory.getLogger(AuctionService.class);
 
+
+    // TODO: change all the lists into Set.
     public List<Auction> getAllAuctions(){
         List<Auction> auctions = new ArrayList<>();
         auctionRepository.findAll().forEach(auctions::add);
         return auctions;
+    }
+
+    public List<Auction> getAllAuctionOnDate(LocalDate today){
+        return auctionRepository.findAllByAuctionDate(today);
     }
 
     public Auction updateAuction(Auction updatedAuction){

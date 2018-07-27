@@ -1,5 +1,6 @@
 package com.sankalpa.auction.scheduler;
 
+import com.sankalpa.auction.model.Auction;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -9,19 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SampleJob implements Job {
+public class AuctionEventJob implements Job {
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private SampleJobService jobService;
+    private AuctionEventJobService auctionEventJobService;
 
+    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        logger.info("Job ** {} ** fired @ {}", context.getJobDetail().getKey().getName(), context.getFireTime());
-
-        jobService.executeSampleJob();
-
-        logger.info("Next job scheduled @ {}", context.getNextFireTime());
+        logger.info("AuctionEvent job ** {} ** fired @ {}", context.getJobDetail().getKey().getName(), context.getFireTime());
+        auctionEventJobService.executeSampleJob(context.getMergedJobDataMap().getLong("auctionId"));
     }
 }
