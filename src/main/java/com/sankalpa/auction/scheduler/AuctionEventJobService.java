@@ -14,12 +14,21 @@ public class AuctionEventJobService {
 
     @Autowired
     private LiveUpdateController liveUpdateController;
+    
+    @Autowired
+    SimpMessagingTemplate template;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     public void executeSampleJob(Long auctionId) {
 
         logger.info("The auction event job with auciton id {} has begun...", auctionId);
-        liveUpdateController.sendPong(auctionId);
+        String message = "auction end";
+        //String message = "new bid";
+        //String message = "auction start";
+        
+        
+        template.convertAndSend("/auction/"+ auctionId,  message);
+        //liveUpdateController.sendPong(auctionId);
     }
 }
