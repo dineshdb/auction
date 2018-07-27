@@ -1,5 +1,6 @@
 package com.sankalpa.auction.service;
 
+import com.sankalpa.auction.model.Auction;
 import com.sankalpa.auction.model.Item;
 import com.sankalpa.auction.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,15 @@ public class ItemService {
         List<Item> items = new ArrayList<>();
         itemRepository.findAll().forEach(items::add);
         return items;
+    }
+
+    public List<Long> getAllItemIds(){
+        List<Long> itemIds = new ArrayList<>();
+        List<Item> items = getAllItems();
+        for (Item item : items){
+            itemIds.add(item.getItemId());
+        }
+        return itemIds;
     }
 
     public Item addItem(Item newItem){

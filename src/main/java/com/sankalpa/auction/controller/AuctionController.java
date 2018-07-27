@@ -15,8 +15,8 @@ public class AuctionController {
     private AuctionService auctionService;
 
     @GetMapping("/auctions")
-    public @ResponseBody List<Auction> getAllAuctions(){
-        return auctionService.getAllAuctions();
+    public @ResponseBody List<Long> getAllAuctionIds(){
+        return auctionService.getAllAuctionIds();
     }
 
     @GetMapping("/auctions/{auctionId}")

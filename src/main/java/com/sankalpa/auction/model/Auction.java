@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -80,6 +81,9 @@ public class Auction {
     }
 
     public List<User> getBidders() {
+        if (bidders == null){
+            bidders = new ArrayList<>();
+        }
         return bidders;
     }
 
@@ -88,6 +92,9 @@ public class Auction {
     }
 
     public List<Bid> getBids() {
+        if (bids == null){
+            bids = new ArrayList<>();
+        }
         return bids;
     }
 
@@ -96,6 +103,9 @@ public class Auction {
     }
 
     public List<Item> getItems() {
+        if (items == null){
+            items = new ArrayList<>();
+        }
         return items;
     }
 

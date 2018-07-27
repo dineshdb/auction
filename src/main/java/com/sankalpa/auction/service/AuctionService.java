@@ -43,8 +43,18 @@ public class AuctionService {
         return auctions;
     }
 
-    public List<Auction> getAllAuctionOnDate(LocalDate today){
+
+    public List<Auction> getAllAuctionOnDate(LocalDate today) {
         return auctionRepository.findAllByAuctionDate(today);
+    }
+
+    public List<Long> getAllAuctionIds(){
+        List<Long> auctionIds = new ArrayList<>();
+        List<Auction> auctions = getAllAuctions();
+        for (Auction auction : auctions){
+            auctionIds.add(auction.getAuctionId());
+        }
+        return auctionIds;
     }
 
     public Auction updateAuction(Auction updatedAuction){
@@ -116,9 +126,10 @@ public class AuctionService {
                 }
                 item.setItemCategories(categories);
 
-                item.setAuction(auction);
                 // update the item finally
+                item.setAuction(auction);
                 item = itemService.updateItem(item);
+//                auction.getItems().add(item);
                 items.add(item);
             }
 
