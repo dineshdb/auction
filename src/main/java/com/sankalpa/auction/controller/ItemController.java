@@ -14,8 +14,8 @@ public class ItemController {
     private ItemService itemService;
 
     @GetMapping("/items")
-    public @ResponseBody List<Item> getAllItems(){
-        return itemService.getAllItems();
+    public @ResponseBody List<Long> getAllItemIds(){
+        return itemService.getAllItemIds();
     }
 
     @GetMapping("/items/{itemId}")
