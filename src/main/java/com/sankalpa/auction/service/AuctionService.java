@@ -137,4 +137,15 @@ public class AuctionService {
         auction.setItems(items);
         return updateAuction(auction);
     }
+
+    public void participate(Long auctionId, Long bidderId) {
+        Auction auction = getAuction(auctionId);
+        User bidder = userService.getUser(bidderId);
+
+        auction.getBidders().add(bidder);
+        bidder.getAuctionsParticipated().add(auction);
+
+        updateAuction(auction);
+        userService.updateUser(bidder);
+    }
 }

@@ -44,8 +44,8 @@ public class AuctionController {
         return auctionService.createAuction(auctionHolder);
     }
 
-    @PostMapping("/auctions/participate/{bidderId}")
-    public void participate(@PathVariable Long bidderId){
-        // TODO: add the bidder to the auction
+    @GetMapping("/auctions/{auctionId}/participate/{bidderId}")
+    public void participate(@PathVariable("auctionId") Long auctionId, @PathVariable("bidderId") Long bidderId){
+        auctionService.participate(auctionId, bidderId);
     }
 }
