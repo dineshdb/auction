@@ -66,7 +66,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         config.addAllowedMethod("UPDATE");
         config.addAllowedMethod("DELETE");
         config.addAllowedMethod("PUT");
-
         config.addAllowedOrigin("*");
         source.registerCorsConfiguration("/**", config);
         return source;

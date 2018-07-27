@@ -27,13 +27,13 @@ public class User {
     private String userAddress;
     private String image;
 
-    @OneToMany(mappedBy = "seller", targetEntity = Item.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "seller", targetEntity = Item.class, cascade = CascadeType.REMOVE)
     private List<Item> items;
 
-    @OneToMany(mappedBy = "seller", targetEntity = Auction.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "seller", targetEntity = Auction.class, cascade = CascadeType.REMOVE)
     private List<Auction> auctionsCreated;
 
-    @OneToMany(mappedBy = "bidder", targetEntity = Bid.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "bidder", targetEntity = Bid.class, cascade = CascadeType.REMOVE)
     private List<Bid> bids;
 
     @ManyToMany(targetEntity = Auction.class)

@@ -1,5 +1,6 @@
 package com.sankalpa.auction.controller;
 
+import com.sankalpa.auction.Holder.AuctionHolder;
 import com.sankalpa.auction.model.Auction;
 import com.sankalpa.auction.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ public class AuctionController {
     private AuctionService auctionService;
 
     @GetMapping("/auctions")
-    public @ResponseBody List<Auction> getAllAuctions(){
-        return auctionService.getAllAuctions();
+    public @ResponseBody List<Long> getAllAuctionIds(){
+        return auctionService.getAllAuctionIds();
     }
 
     @GetMapping("/auctions/{auctionId}")
@@ -36,5 +37,15 @@ public class AuctionController {
     @DeleteMapping("/auctions/{auctionId}")
     public void deleteAuction(@PathVariable Long auctionId){
         auctionService.deleteAuction(auctionId);
+    }
+
+    @PostMapping("/auctions/createAuction")
+    public Auction createAcution(@RequestBody AuctionHolder auctionHolder){
+        return auctionService.createAuction(auctionHolder);
+    }
+
+    @PostMapping("/auctions/participate/{bidderId}")
+    public void participate(@PathVariable Long bidderId){
+        // TODO: add the bidder to the auction
     }
 }

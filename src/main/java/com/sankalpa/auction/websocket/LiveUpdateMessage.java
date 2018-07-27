@@ -5,7 +5,7 @@ public class LiveUpdateMessage {
     public int amount;
     public String username;
     public int userId;
-    
+
     public LiveUpdateMessage(String id){
     	this.auctionId = id;
     }
