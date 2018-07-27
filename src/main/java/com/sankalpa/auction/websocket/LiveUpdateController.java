@@ -1,5 +1,6 @@
 package com.sankalpa.auction.websocket;
 
+import com.sankalpa.auction.Holder.HighestBidInfo;
 import com.sankalpa.auction.model.StringResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,8 @@ public class LiveUpdateController {
 
     @SendTo("/auction/highestBid")
     public void sendHighestBid(String highestBidderId, String highestBidAmount){
-        //template.convertAndSend("/auction/highestBid", );
+        HighestBidInfo info = new HighestBidInfo(highestBidderId, highestBidAmount);
+        template.convertAndSend("/auction/highestBid", info);
         // TODO: send highestBidderId and highestBidAmount
     }
 

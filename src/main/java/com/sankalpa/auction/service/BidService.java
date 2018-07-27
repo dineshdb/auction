@@ -5,6 +5,7 @@ import com.sankalpa.auction.model.Bid;
 import com.sankalpa.auction.model.Item;
 import com.sankalpa.auction.model.User;
 import com.sankalpa.auction.repository.BidRepository;
+import com.sankalpa.auction.websocket.LiveUpdateController;
 import com.sankalpa.auction.websocket.LiveUpdateMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class BidService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LiveUpdateController liveUpdateController;
 
     public List<Bid> getAllBids(){
         List<Bid> bids = new ArrayList<>();
@@ -55,7 +59,7 @@ public class BidService {
         String bidderId = update.getBidderId();
         String itemId = update.getItemId();
 
-        double bidAmount = update.getBidAmount();
+        double bidAmount = Double.valueOf(update.getBidAmount());
         String bidDate = update.getBidDate();
         String bidTime = update.getBidTime();
 
