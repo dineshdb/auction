@@ -20,6 +20,6 @@ public class AuctionEventJobService {
     public void executeSampleJob(Long auctionId) {
 
         logger.info("The auction event job with auciton id {} has begun...", auctionId);
-        liveUpdateController.sendPong(auctionId);
+        liveUpdateController.sendAuctionId(auctionId);
     }
 }

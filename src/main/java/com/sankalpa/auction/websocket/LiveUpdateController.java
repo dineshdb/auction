@@ -17,20 +17,20 @@ public class LiveUpdateController {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
-    @SendTo("/auction/{product}")
-    public LiveUpdateMessage update(@DestinationVariable("product") String product, String msg){
-    	log.info(product + msg);
-        return new LiveUpdateMessage(product);
+    @SendTo("/auction/highestBid")
+    public void sendHighestBid(String highestBidderId, String highestBidAmount){
+        //template.convertAndSend("/auction/highestBid", );
+        // TODO: send highestBidderId and highestBidAmount
     }
 
     @Autowired
     SimpMessagingTemplate template;
 
     //@Scheduled(fixedDelay = 1000L)
-    @SendTo("/auction/1")
-    public void sendPong(Long auctionId) {
+    @SendTo("/auction/watch")
+    public void sendAuctionId(Long auctionId) {
         log.info("auctionId: " + String.valueOf(auctionId));
-        template.convertAndSend("/auction/1", HtmlUtils.htmlEscape(auctionId.toString()));
+        template.convertAndSend("/auction/watch", HtmlUtils.htmlEscape(auctionId.toString()));
         //return new StringResponse(String.valueOf(auctionId));
     }
 }
