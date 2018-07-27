@@ -30,7 +30,7 @@ public class LiveUpdateController {
     @SendTo("/auction/1")
     public void sendPong(Long auctionId) {
         log.info("auctionId: " + String.valueOf(auctionId));
-        template.convertAndSend("/auction/1", new StringResponse(String.valueOf(auctionId)));
+        template.convertAndSend("/auction/1", HtmlUtils.htmlEscape(auctionId.toString()));
         //return new StringResponse(String.valueOf(auctionId));
     }
 }
