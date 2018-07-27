@@ -1,5 +1,6 @@
 package com.sankalpa.auction.service;
 
+import com.sankalpa.auction.Holder.HighestBidInfo;
 import com.sankalpa.auction.model.Auction;
 import com.sankalpa.auction.model.Bid;
 import com.sankalpa.auction.model.Item;
@@ -82,5 +83,16 @@ public class BidService {
         itemService.updateItem(item);
         userService.updateUser(bidder);
         auctionService.updateAuction(auction);
+
+        // get the highest bid
+        // TODO: make this shaZam cool
+        List<Bid> bids = item.getBids();
+        Bid highestBid = bids.get(0);
+        for (Bid b : bids){
+            if (b.getBidAmount() > highestBid.getBidAmount()){
+                highestBid = b;
+            }
+        }
+        liveUpdateController.sendHighestBid(highestBid.getBidId().toString(), String.valueOf(highestBid.getBidAmount()));
     }
 }

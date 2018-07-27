@@ -1,5 +1,6 @@
 package com.sankalpa.auction.websocket;
 
+import com.sankalpa.auction.Holder.AuctionWatchInfo;
 import com.sankalpa.auction.Holder.HighestBidInfo;
 import com.sankalpa.auction.model.StringResponse;
 import org.slf4j.Logger;
@@ -30,9 +31,10 @@ public class LiveUpdateController {
 
     //@Scheduled(fixedDelay = 1000L)
     @SendTo("/auction/watch")
-    public void sendAuctionId(Long auctionId) {
+    public void sendAuctionId(Long auctionId, String action) {
         log.info("auctionId: " + String.valueOf(auctionId));
-        template.convertAndSend("/auction/watch", HtmlUtils.htmlEscape(auctionId.toString()));
+        AuctionWatchInfo info = new AuctionWatchInfo(String.valueOf(auctionId), action);
+        template.convertAndSend("/auction/watch", info);
         //return new StringResponse(String.valueOf(auctionId));
     }
 }
