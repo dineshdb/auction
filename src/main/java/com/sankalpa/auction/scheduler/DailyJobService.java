@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -32,8 +33,13 @@ public class DailyJobService {
             JobDataMap dataMap = new JobDataMap();
 
             LocalTime time = LocalTime.parse(auction.getAuctionTime());
+            LocalTime duration = LocalTime.parse(auction.getAuctionDuration());
+            LocalTime endDate = time.plusSeconds(duration.getSecond())
+                    .plusMinutes(duration.getMinute())
+                    .plusHours(duration.getHour());
 
             dataMap.put("auctionId", auction.getAuctionId());
+            dataMap.put("startTime", auction.getAuctionTime());
 
             JobDetail jobDetail = JobBuilder.newJob(AuctionEventJob.class)
                     .setJobData(dataMap)
@@ -45,24 +51,23 @@ public class DailyJobService {
 //            trigger.setStartTime(Time.valueOf(time));
 //            trigger.setName("Event_Trigger");
 
+//            SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder
+//                    .simpleSchedule()
+//                    .withRepeatCount(1);
+
             Trigger trigger = TriggerBuilder.newTrigger()
                     .forJob(jobDetail)
                     .startAt(Time.valueOf(time))
+                    .endAt(Time.valueOf(endDate))
+                    //.withSchedule(scheduleBuilder)
                     .build();
 
             try {
-                scheduler.scheduleJob(trigger);
+                scheduler.scheduleJob(jobDetail, trigger);
             } catch (SchedulerException e) {
                 e.printStackTrace();
             }
-        }
 
-//        try {
-//
-//        } catch (InterruptedException e) {
-//            logger.error("Error while executing sample job", e);
-//        } finally {
-//            logger.info("Daily job has finished...");
-//        }
+        }
     }
 }

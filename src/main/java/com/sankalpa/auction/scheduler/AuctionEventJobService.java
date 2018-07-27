@@ -16,13 +16,5 @@ public class AuctionEventJobService {
 
         logger.info("The auction event job with auciton id {} has begun...", auctionId);
         // TODO: fire individual event jobs here for every event
-
-//        try {
-//
-//        } catch (InterruptedException e) {
-//            logger.error("Error while executing sample job", e);
-//        } finally {
-//            logger.info("Daily job has finished...");
-//        }
     }
 }

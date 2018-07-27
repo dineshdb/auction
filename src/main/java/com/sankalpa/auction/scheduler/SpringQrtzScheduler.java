@@ -17,6 +17,9 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
+import java.sql.Time;
+import java.time.LocalTime;
+
 @Configuration
 public class SpringQrtzScheduler {
 
@@ -70,8 +73,8 @@ public class SpringQrtzScheduler {
         SimpleTriggerFactoryBean trigger = new SimpleTriggerFactoryBean();
         trigger.setJobDetail(job);
 
-        //int frequencyInSec = 86400;
-        int frequencyInSec = 100;
+        int frequencyInSec = 86400; // once every day
+//        int frequencyInSec = 100;
         logger.info("Configuring trigger to fire every {} seconds", frequencyInSec);
 
         trigger.setRepeatInterval(frequencyInSec * 1000);  // TODO: change frequency to seconds
