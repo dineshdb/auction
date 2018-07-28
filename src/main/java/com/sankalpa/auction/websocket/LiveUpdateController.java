@@ -25,6 +25,10 @@ public class LiveUpdateController {
     }
 
     @Scheduled(fixedDelay = 1000L)
+    public void ping(){
+        auctionBid(1, 2, 100);
+    }
+
     public void auctionBid(int auctionId, int user, int bid){
         sendLive("/auction/"+ auctionId, "bid " + user + " " + bid);
     }
