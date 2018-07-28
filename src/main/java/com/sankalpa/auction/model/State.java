@@ -16,7 +16,7 @@ public class State {
 
     private String stateName;
 
-    @OneToMany(mappedBy = "itemState", targetEntity = Item.class, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "itemState", targetEntity = Item.class)
     private List<Item> items;
 
     protected State(){}

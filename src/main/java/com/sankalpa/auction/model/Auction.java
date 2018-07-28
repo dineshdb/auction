@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,10 +29,10 @@ public class Auction {
     @ManyToOne
     private User seller;
 
-    @OneToMany(mappedBy = "auction", targetEntity = Bid.class, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "auction", targetEntity = Bid.class, cascade = CascadeType.REMOVE)
     private List<Bid> bids;
 
-    @OneToMany(mappedBy = "auction", targetEntity = Item.class, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "auction", targetEntity = Item.class, cascade = CascadeType.REMOVE)
     private List<Item> items;
 
     @ManyToMany(targetEntity = User.class)
@@ -79,6 +81,9 @@ public class Auction {
     }
 
     public List<User> getBidders() {
+        if (bidders == null){
+            bidders = new ArrayList<>();
+        }
         return bidders;
     }
 
@@ -87,6 +92,9 @@ public class Auction {
     }
 
     public List<Bid> getBids() {
+        if (bids == null){
+            bids = new ArrayList<>();
+        }
         return bids;
     }
 
@@ -95,6 +103,9 @@ public class Auction {
     }
 
     public List<Item> getItems() {
+        if (items == null){
+            items = new ArrayList<>();
+        }
         return items;
     }
 

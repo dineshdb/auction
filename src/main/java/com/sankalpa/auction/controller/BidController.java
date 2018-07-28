@@ -2,6 +2,7 @@ package com.sankalpa.auction.controller;
 
 import com.sankalpa.auction.model.Bid;
 import com.sankalpa.auction.service.BidService;
+import com.sankalpa.auction.websocket.LiveUpdateMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +37,10 @@ public class BidController {
     @DeleteMapping("/bids/{bidId}")
     public void deleteBid(@PathVariable Long bidId){
         bidService.deleteBid(bidId);
+    }
+
+    @PostMapping("/bids/saveBid")
+    public void saveBid(@RequestBody LiveUpdateMessage update){
+        bidService.saveBid(update);
     }
 }

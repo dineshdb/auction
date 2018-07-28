@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,7 +34,7 @@ public class Item {
     @ManyToOne
     private Auction auction;
 
-    @OneToMany(mappedBy = "item", targetEntity = Bid.class, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "item", targetEntity = Bid.class, cascade = CascadeType.REMOVE)
     private List<Bid> bids;
 
     protected Item(){}
@@ -54,6 +55,9 @@ public class Item {
     }
 
     public List<Bid> getBids() {
+        if (bids == null){
+            bids = new ArrayList<>();
+        }
         return bids;
     }
 
@@ -86,6 +90,9 @@ public class Item {
     }
 
     public List<Category> getItemCategories() {
+        if (itemCategories == null){
+            itemCategories = new ArrayList<>();
+        }
         return itemCategories;
     }
 
