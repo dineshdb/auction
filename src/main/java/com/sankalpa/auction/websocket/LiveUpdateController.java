@@ -20,9 +20,23 @@ public class LiveUpdateController {
     @Autowired
     SimpMessagingTemplate template;
 
-    @Scheduled(fixedDelay = 1000L)
-    @SendTo("/auction/1")
     public void sendPong() {
         template.convertAndSend("/auction/1", "pong (periodic)");
+    }
+
+    @Scheduled(fixedDelay = 1000L)
+    public void auctionBid(int auctionId, int user, int bid){
+        sendLive("/auction/"+ auctionId, "bid " + user + " " + bid);
+    }
+
+    public void auctionEnd(int auctionId){
+        sendLive("/auction/"+ auctionId, "end");
+    }
+
+    public void auctionStart(int auctionId){
+        sendLive("/auction/"+ auctionId, "start");
+    }
+    public void sendLive(String path, String message){
+        template.convertAndSend(path, message);
     }
 }
