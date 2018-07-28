@@ -41,7 +41,9 @@ public class AuctionController {
 
     @PostMapping("/auctions/createAuction")
     public Auction createAcution(@RequestBody AuctionHolder auctionHolder){
-        return auctionService.createAuction(auctionHolder);
+        Auction auction = auctionService.createAuction(auctionHolder);
+        //auctionService.schedule(auction);
+        return auction;
     }
 
     @GetMapping("/auctions/{auctionId}/participate/{bidderId}")

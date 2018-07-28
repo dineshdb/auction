@@ -20,10 +20,13 @@ public class LiveUpdateController {
     Logger log = LoggerFactory.getLogger(getClass());
 
     @SendTo("/auction/highestBid")
-    public void sendHighestBid(String highestBidderId, String highestBidAmount){
-        HighestBidInfo info = new HighestBidInfo(highestBidderId, highestBidAmount);
+    public void sendHighestBid(String highestBidderId, String highestBidId, String highestBidAmount,
+                String itemId, String auctionId){
+
+        HighestBidInfo info = new HighestBidInfo(highestBidderId, highestBidId, highestBidAmount, itemId, auctionId);
         template.convertAndSend("/auction/highestBid", info);
         // TODO: send highestBidderId and highestBidAmount
+
     }
 
     @Autowired
