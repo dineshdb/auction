@@ -19,25 +19,23 @@ public class LiveUpdateController {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
-    @SendTo("/auction/highestBid")
-    public void sendHighestBid(String highestBidderId, String highestBidId, String highestBidAmount,
-                String itemId, String auctionId){
+    @SendTo("/auction/highestBid/{itemId}")
+    public void sendHighestBid(@DestinationVariable("itemId") Long itemId, String highestBidderId, String highestBidId,
+                               String highestBidAmount, String auctionId){
 
-        HighestBidInfo info = new HighestBidInfo(highestBidderId, highestBidId, highestBidAmount, itemId, auctionId);
-        template.convertAndSend("/auction/highestBid", info);
-        // TODO: send highestBidderId and highestBidAmount
-
+        //HighestBidInfo info = new HighestBidInfo(highestBidderId, highestBidId, highestBidAmount, itemId.toString(), auctionId);
+        template.convertAndSend("/auction/highestBid/" + itemId.toString(), "bid " + auctionId + " " +
+                highestBidAmount + " " + highestBidderId);
+        // auctionId, bidAmount, userId
     }
 
     @Autowired
     SimpMessagingTemplate template;
 
-    //@Scheduled(fixedDelay = 1000L)
-    @SendTo("/auction/watch")
-    public void sendAuctionId(Long auctionId, String action) {
+    @SendTo("/auction/{id}")
+    public void sendAuctionId(@DestinationVariable("id") Long auctionId, String action) {
         log.info("auctionId: " + String.valueOf(auctionId));
-        AuctionWatchInfo info = new AuctionWatchInfo(String.valueOf(auctionId), action);
-        template.convertAndSend("/auction/watch", info);
-        //return new StringResponse(String.valueOf(auctionId));
+        //AuctionWatchInfo info = new AuctionWatchInfo(String.valueOf(auctionId), action);
+        template.convertAndSend("/auction/"+auctionId.toString(), "start");
     }
 }

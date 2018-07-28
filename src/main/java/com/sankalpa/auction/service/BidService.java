@@ -94,10 +94,10 @@ public class BidService {
             }
         }
         User highestBidder = highestBid.getBidder();
-        liveUpdateController.sendHighestBid(highestBidder.getUserId().toString(),
+        liveUpdateController.sendHighestBid(item.getItemId(),
+                highestBidder.getUserId().toString(),
                 highestBid.getBidId().toString(),
                 String.valueOf(highestBid.getBidAmount()),
-                item.getItemId().toString(),
                 auction.getAuctionId().toString());
     }
 }
