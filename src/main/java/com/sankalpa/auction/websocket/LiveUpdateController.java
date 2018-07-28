@@ -37,5 +37,31 @@ public class LiveUpdateController {
         log.info("auctionId: " + String.valueOf(auctionId));
         //AuctionWatchInfo info = new AuctionWatchInfo(String.valueOf(auctionId), action);
         template.convertAndSend("/auction/"+auctionId.toString(), "start");
+
+//        AuctionWatchInfo info = new AuctionWatchInfo(String.valueOf(auctionId), action);
+//        template.convertAndSend("/auction/watch", info);
+//        //return new StringResponse(String.valueOf(auctionId));
+//        template.convertAndSend("/auction/1", "pong (periodic)");
     }
+
+//    @Scheduled(fixedDelay = 1000L)
+//    public void ping(){
+//        auctionBid(1, 2, 100);
+//    }
+
+//    public void auctionBid(int auctionId, int user, int bid){
+//        sendLive("/auction/"+ auctionId, "bid " + user + " " + bid);
+//    }
+//
+//    public void auctionEnd(int auctionId){
+//        sendLive("/auction/"+ auctionId, "end");
+//    }
+//
+//    public void auctionStart(int auctionId){
+//        sendLive("/auction/"+ auctionId, "start");
+//    }
+//
+//    public void sendLive(String path, String message){
+//        template.convertAndSend(path, message);
+//    }
 }
