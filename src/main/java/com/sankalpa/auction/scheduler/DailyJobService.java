@@ -1,6 +1,7 @@
 package com.sankalpa.auction.scheduler;
 
 import com.sankalpa.auction.model.Auction;
+import org.apache.tomcat.jni.Local;
 import org.quartz.*;
 import org.quartz.core.QuartzScheduler;
 import org.slf4j.Logger;
@@ -38,12 +39,13 @@ public class DailyJobService {
             JobDataMap dataMap = new JobDataMap();
 
             LocalTime time = LocalTime.parse(auction.getAuctionTime());
-            LocalTime duration = LocalTime.parse(auction.getAuctionDuration());
-            LocalTime endTime = time.plusSeconds(duration.getSecond())
-                    .plusMinutes(duration.getMinute())
-                    .plusHours(duration.getHour());
+//            LocalTime duration = LocalTime.parse(auction.getAuctionDuration());
+//            LocalTime endTime = time.plusSeconds(duration.getSecond())
+//                    .plusMinutes(duration.getMinute())
+//                    .plusHours(duration.getHour());
+            LocalTime endTime = LocalTime.parse(auction.getAuctionDuration());
 
-            String startDateStr = auction.getAuctionDate() + " " + auction.getAuctionTime();
+            String startDateStr = auction.getAuctionDate() + " " + time.toString();
             String endDateStr = auction.getAuctionDate() + " " + endTime.toString();
 
             java.util.Date startDate = null;
