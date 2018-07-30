@@ -17,26 +17,26 @@ import org.springframework.web.util.HtmlUtils;
 @Controller
 public class LiveUpdateController {
 
-    Logger log = LoggerFactory.getLogger(getClass());
-
-    @SendTo("/auction/highestBid/{itemId}")
-    public void sendHighestBid(@DestinationVariable("itemId") Long itemId, String highestBidderId, String highestBidId,
-                               String highestBidAmount, String auctionId){
-
-        //HighestBidInfo info = new HighestBidInfo(highestBidderId, highestBidId, highestBidAmount, itemId.toString(), auctionId);
-        template.convertAndSend("/auction/highestBid/" + itemId.toString(), "bid " + auctionId + " " +
-                highestBidAmount + " " + highestBidderId);
-        // auctionId, bidAmount, userId
-    }
-
     @Autowired
     SimpMessagingTemplate template;
 
-    @SendTo("/auction/{id}")
-    public void sendAuctionId(@DestinationVariable("id") Long auctionId, String action) {
+    Logger log = LoggerFactory.getLogger(getClass());
+
+    @SendTo("/auction/{auctionId}")
+    public void sendHighestBid(@DestinationVariable("auctionId") Long auctionId, String itemId,
+                               String highestBidderId, String highestBidId, String highestBidAmount){
+
+        //HighestBidInfo info = new HighestBidInfo(highestBidderId, highestBidId, highestBidAmount, itemId.toString(), auctionId);
+        template.convertAndSend("/auction/" + auctionId.toString(), "bid " + auctionId + " " + highestBidderId + " "
+                 + highestBidAmount);
+        // auctionId, userId, bidAmount
+    }
+
+    @SendTo("/auction/{auctionId}")
+    public void sendAuctionId(@DestinationVariable("auctionId") Long auctionId, String action) {
         log.info("auctionId: " + String.valueOf(auctionId));
         //AuctionWatchInfo info = new AuctionWatchInfo(String.valueOf(auctionId), action);
-        template.convertAndSend("/auction/"+auctionId.toString(), "start");
+        template.convertAndSend("/auction/" + auctionId.toString(), "start");
 
 //        AuctionWatchInfo info = new AuctionWatchInfo(String.valueOf(auctionId), action);
 //        template.convertAndSend("/auction/watch", info);
