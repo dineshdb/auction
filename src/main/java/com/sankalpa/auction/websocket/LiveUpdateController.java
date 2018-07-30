@@ -22,18 +22,26 @@ public class LiveUpdateController {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
-    @SendTo("/auction/{auctionId}")
-    public void sendHighestBid(@DestinationVariable("auctionId") Long auctionId, String itemId,
+    @SendTo("/auction/{id}")
+    public void sendHighestBid(@DestinationVariable("id") Long auctionId, String itemId,
                                String highestBidderId, String highestBidId, String highestBidAmount){
 
         //HighestBidInfo info = new HighestBidInfo(highestBidderId, highestBidId, highestBidAmount, itemId.toString(), auctionId);
-        template.convertAndSend("/auction/" + auctionId.toString(), "bid " + auctionId + " " + highestBidderId + " "
-                 + highestBidAmount);
+        log.info("bidderId: " + highestBidderId.toString());
+        template.convertAndSend("/auction/" + auctionId.toString(), "bid " + auctionId.toString() + " " +
+                highestBidderId + " " + highestBidAmount);
         // auctionId, userId, bidAmount
     }
 
-    @SendTo("/auction/{auctionId}")
-    public void sendAuctionId(@DestinationVariable("auctionId") Long auctionId, String action) {
+    @SendTo("/auction/{id}")
+    public void sendBid(@DestinationVariable("id") Long auctionId, String bidderId, String bidAmount){
+        log.info("new bid sent: " + bidAmount);
+        template.convertAndSend("/auction/" + auctionId.toString(), "bid " + auctionId.toString() + " " +
+                bidderId + " " + bidAmount);
+    }
+
+    @SendTo("/auction/{id}")
+    public void sendAuctionId(@DestinationVariable("id") Long auctionId, String action) {
         log.info("auctionId: " + String.valueOf(auctionId));
         //AuctionWatchInfo info = new AuctionWatchInfo(String.valueOf(auctionId), action);
         template.convertAndSend("/auction/" + auctionId.toString(), "start");
