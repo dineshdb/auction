@@ -158,6 +158,11 @@ public class AuctionService {
         userService.updateUser(bidder);
     }
 
+    public List<Bid> allBids(Long auctionId){
+        Auction auction = getAuction(auctionId);
+        return auction.getBids();
+    }
+
 //    public void schedule(Auction auction) {
 //
 //        LocalDate date = LocalDate.parse(auction.getAuctionDate());

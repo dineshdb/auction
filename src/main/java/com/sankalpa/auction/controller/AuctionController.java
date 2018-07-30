@@ -2,6 +2,7 @@ package com.sankalpa.auction.controller;
 
 import com.sankalpa.auction.Holder.AuctionHolder;
 import com.sankalpa.auction.model.Auction;
+import com.sankalpa.auction.model.Bid;
 import com.sankalpa.auction.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +50,10 @@ public class AuctionController {
     @GetMapping("/auctions/{auctionId}/participate/{bidderId}")
     public void participate(@PathVariable("auctionId") Long auctionId, @PathVariable("bidderId") Long bidderId){
         auctionService.participate(auctionId, bidderId);
+    }
+
+    @GetMapping("/auctions/{auctionId}/bids")
+    public List<Bid> allBids(@PathVariable Long auctionId){
+        return auctionService.allBids(auctionId);
     }
 }

@@ -86,18 +86,20 @@ public class BidService {
 
         // get the highest bid
         // TODO: make this shaZam cool
-        List<Bid> bids = item.getBids();
-        Bid highestBid = bids.get(0);
-        for (Bid b : bids){
-            if (b.getBidAmount() > highestBid.getBidAmount()){
-                highestBid = b;
-            }
-        }
-        User highestBidder = highestBid.getBidder();
-        liveUpdateController.sendHighestBid(item.getItemId(),
-                highestBidder.getUserId().toString(),
-                highestBid.getBidId().toString(),
-                String.valueOf(highestBid.getBidAmount()),
-                auction.getAuctionId().toString());
+//        List<Bid> bids = item.getBids();
+//        Bid highestBid = bids.get(0);
+//        for (Bid b : bids){
+//            if (b.getBidAmount() > highestBid.getBidAmount()){
+//                highestBid = b;
+//            }
+//        }
+//        User highestBidder = highestBid.getBidder();
+//        liveUpdateController.sendHighestBid(auction.getAuctionId(),
+//                item.getItemId().toString(),
+//                highestBidder.getUserId().toString(),
+//                highestBid.getBidId().toString(),
+//                String.valueOf(highestBid.getBidAmount()));
+
+        liveUpdateController.sendBid(Long.valueOf(auctionId), bidderId, String.valueOf(bidAmount));
     }
 }
