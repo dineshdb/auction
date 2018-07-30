@@ -36,7 +36,7 @@ public class UserService {
         return userRepository.findById(userId).orElse(null);
     }
 
-    public User findByUserEmail(String userEmail){
+    public User findbyEmail(String userEmail){
         return userRepository.findByUserEmail(userEmail);
     }
 }

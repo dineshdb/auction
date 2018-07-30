@@ -1,16 +1,12 @@
 package com.sankalpa.auction.controller;
 
-import com.sankalpa.auction.Util.UserAlreadyExistsException;
 import com.sankalpa.auction.model.User;
-import com.sankalpa.auction.repository.UserRepository;
 import com.sankalpa.auction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @RestController

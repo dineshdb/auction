@@ -1,6 +1,7 @@
 package com.sankalpa.auction.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +21,7 @@ public class User {
     private String userEmail;
 
     @Column(nullable = false)
+    //@JsonIgnore
     private String userPassword;
 
     private String userName;
@@ -28,14 +30,18 @@ public class User {
     private String image;
 
     @OneToMany(mappedBy = "seller", targetEntity = Item.class, cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Item> items;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "seller", targetEntity = Auction.class, cascade = CascadeType.REMOVE)
     private List<Auction> auctionsCreated;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "bidder", targetEntity = Bid.class, cascade = CascadeType.REMOVE)
     private List<Bid> bids;
 
+    @JsonIgnore
     @ManyToMany(targetEntity = Auction.class)
     private List<Auction> auctionsParticipated;
 
@@ -72,7 +78,7 @@ public class User {
     }
 
     @Transient
-    public String getDiscriminatorValue(){
+    public String getRole(){
         DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
         return val == null ? null : val.value();
     }
@@ -139,14 +145,6 @@ public class User {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
-    }
-
-    public String getPassword() {
-        return userPassword;
-    }
-
-    public void setPassword(String userPassword) {
-        this.userPassword = userPassword;
     }
 
     public String getUserName() {
