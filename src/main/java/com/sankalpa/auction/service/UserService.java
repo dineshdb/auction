@@ -1,5 +1,6 @@
 package com.sankalpa.auction.service;
 
+import com.sankalpa.auction.model.Item;
 import com.sankalpa.auction.model.User;
 import com.sankalpa.auction.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,16 @@ public class UserService {
 
     public User findByUserEmail(String userEmail){
         return userRepository.findByUserEmail(userEmail);
+    }
+
+    public List<Long> favorites(Long userId) {
+        User user = getUser(userId);
+        List<Item> items = user.getItems();
+
+        List<Long> itemIds = new ArrayList<>();
+        for (Item item : items){
+            itemIds.add(item.getItemId());
+        }
+        return itemIds;
     }
 }

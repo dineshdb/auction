@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.sankalpa.auction.security.SecurityConstants.EXPIRATION_TIME;
 import static com.sankalpa.auction.security.SecurityConstants.HEADER_STRING;
@@ -77,6 +78,18 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         res.setCharacterEncoding("utf-8");
 
         PrintWriter out = res.getWriter();
-        out.print(new StringResponse(user.getUserId().toString()).toString());
+//        StringBuilder builder = new StringBuilder();
+//        builder.append(user.getUserId().toString());
+//        builder.append(" ");
+//
+//        // get all items subscribed by user
+//        List<Long> itemIds = userService.favorites(user.getUserId());
+//        for (Long id : itemIds){
+//            builder.append(id.toString());
+//            builder.append(" ");
+//        }
+//
+//        out.print(new StringResponse(builder.toString()));
+        out.print(new StringResponse(user.getUserId().toString()));
     }
 }
