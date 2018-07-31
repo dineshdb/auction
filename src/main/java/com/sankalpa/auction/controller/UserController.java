@@ -58,4 +58,9 @@ public class UserController {
             return "A user with email " + newUser.getUserEmail() + " already exists.";
         }
     }
+
+    @GetMapping("/{userId}/favorites")
+    public @ResponseBody List<Long> favorites(@PathVariable Long userId){
+        return userService.favorites(userId);
+    }
 }
