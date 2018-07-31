@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -30,6 +31,10 @@ public class UserService {
 
     public void deleteUser(Long userId){
         userRepository.deleteById(userId);
+    }
+
+    public Optional<User> getUserById(Long userId){
+        return userRepository.findById(userId);
     }
 
     public User getUser(Long userId){

@@ -96,6 +96,7 @@ public class AuctionService {
                 auctionDuration));
 
         Long seller = auctionHolder.getSeller();
+        System.out.println("Seller is: " +seller);
         auction.setSeller(userService.getUser(seller));
 
         List<Long> bidders = auctionHolder.getBidders();
