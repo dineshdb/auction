@@ -3,7 +3,7 @@ spring:
     name: ${APP_NAME}
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   data:
     jpa:
       repositories:
