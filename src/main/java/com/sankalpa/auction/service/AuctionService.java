@@ -164,6 +164,18 @@ public class AuctionService {
         return auction.getBids();
     }
 
+    public void unsubscribe(Long auctionId, Long bidderId) {
+        // remove the auction from the user's list and vice-versa
+        Auction auction = getAuction(auctionId);
+        User bidder = userService.getUser(bidderId);
+
+        auction.getBidders().remove(bidder);
+        bidder.getAuctionsParticipated().remove(auction);
+
+        updateAuction(auction);
+        userService.updateUser(bidder);
+    }
+
 //    public void schedule(Auction auction) {
 //
 //        LocalDate date = LocalDate.parse(auction.getAuctionDate());
