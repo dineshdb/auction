@@ -1,14 +1,11 @@
 package com.sankalpa.auction.security;
 
-import com.sankalpa.auction.model.StringResponse;
 import com.sankalpa.auction.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sankalpa.auction.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -70,12 +67,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
                 .compact();
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
-        User user = userService.findByUserEmail(((org.springframework.security.core.userdetails.User)
+        User user = userService.findbyEmail(((org.springframework.security.core.userdetails.User)
                 auth.getPrincipal()).getUsername());
         //res.addHeader("userId", user.getUserId().toString());
 
         res.setContentType("application/json");
         res.setCharacterEncoding("utf-8");
+        user.setUserPassword(TOKEN_PREFIX + token);
 
         PrintWriter out = res.getWriter();
 //        StringBuilder builder = new StringBuilder();
@@ -90,6 +88,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //        }
 //
 //        out.print(new StringResponse(builder.toString()));
-        out.print(new StringResponse(user.getUserId().toString()));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(out, user);
+//        out.print(new StringResponse(user.getUserId().toString()).toString());
     }
 }

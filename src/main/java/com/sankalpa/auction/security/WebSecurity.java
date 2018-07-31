@@ -40,6 +40,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers("/live/**").permitAll()
                 .antMatchers("/downloadFile/**").permitAll()
+                .antMatchers("/categories").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), userService))
@@ -74,9 +75,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin").password("admin").roles("ADMIN")
-                .and().withUser("user").password("user").roles("USER");;
+//        auth
+//                .inMemoryAuthentication()
+//                .withUser("admin").password("admin").roles("ADMIN")
+//                .and().withUser("user").password("user").roles("USER");;
     }
 }

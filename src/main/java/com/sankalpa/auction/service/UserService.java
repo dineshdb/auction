@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -34,11 +35,15 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    public Optional<User> getUserById(Long userId){
+        return userRepository.findById(userId);
+    }
+
     public User getUser(Long userId){
         return userRepository.findById(userId).orElse(null);
     }
 
-    public User findByUserEmail(String userEmail){
+    public User findbyEmail(String userEmail){
         return userRepository.findByUserEmail(userEmail);
     }
 
