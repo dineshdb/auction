@@ -52,6 +52,11 @@ public class AuctionController {
         auctionService.participate(auctionId, bidderId);
     }
 
+    @GetMapping("/auctions/{auctionId}/unsubscribe/{bidderId}")
+    public void unsubscribe(@PathVariable("auctionId") Long auctionId, @PathVariable("bidderId") Long bidderId){
+        auctionService.unsubscribe(auctionId, bidderId);
+    }
+
     @GetMapping("/auctions/{auctionId}/bids")
     public List<Bid> allBids(@PathVariable Long auctionId){
         return auctionService.allBids(auctionId);
