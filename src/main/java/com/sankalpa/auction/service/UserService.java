@@ -1,5 +1,6 @@
 package com.sankalpa.auction.service;
 
+import com.sankalpa.auction.model.Auction;
 import com.sankalpa.auction.model.Item;
 import com.sankalpa.auction.model.User;
 import com.sankalpa.auction.repository.UserRepository;
@@ -43,12 +44,12 @@ public class UserService {
 
     public List<Long> favorites(Long userId) {
         User user = getUser(userId);
-        List<Item> items = user.getItems();
+        List<Auction> auctions = user.getAuctionsParticipated();
 
-        List<Long> itemIds = new ArrayList<>();
-        for (Item item : items){
-            itemIds.add(item.getItemId());
+        List<Long> auctionIds = new ArrayList<>();
+        for (Auction auction : auctions){
+            auctionIds.add(auction.getAuctionId());
         }
-        return itemIds;
+        return auctionIds;
     }
 }
