@@ -4,7 +4,10 @@ import com.sankalpa.auction.model.Auction;
 import com.sankalpa.auction.model.Item;
 import com.sankalpa.auction.model.User;
 import com.sankalpa.auction.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +16,8 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
+    Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserRepository userRepository;
@@ -57,4 +62,5 @@ public class UserService {
         }
         return auctionIds;
     }
+
 }
