@@ -59,8 +59,7 @@ public class AuctionController {
     @GetMapping("/{auctionId}/participate")
     public void participate(@PathVariable("auctionId") Long auctionId, Authentication authentication){
         User user = userService.findbyEmail(authentication.getName());
-        Long bidderId = user.getUserId();
-        auctionService.participate(auctionId, bidderId);
+        auctionService.participate(auctionId, user.getUserId());
     }
 
     @Deprecated
