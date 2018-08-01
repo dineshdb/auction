@@ -3,6 +3,8 @@ package com.sankalpa.auction.controller;
 import com.sankalpa.auction.model.Item;
 import com.sankalpa.auction.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +16,8 @@ public class ItemController {
     private ItemService itemService;
 
     @GetMapping("/items")
-    public @ResponseBody List<Long> getAllItemIds(){
-        return itemService.getAllItemIds();
+    public @ResponseBody List<Long> getAllItemIds(Pageable pageable){
+        return itemService.getAllItemIds(pageable);
     }
 
     @GetMapping("/items/{itemId}")

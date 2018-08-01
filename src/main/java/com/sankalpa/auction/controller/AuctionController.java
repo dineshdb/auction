@@ -7,6 +7,9 @@ import com.sankalpa.auction.model.User;
 import com.sankalpa.auction.service.AuctionService;
 import com.sankalpa.auction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +27,9 @@ public class AuctionController {
     private UserService userService;
 
     @GetMapping("/")
-    public @ResponseBody List<Long> getAllAuctionIds(){
-        return auctionService.getAllAuctionIds();
+    public @ResponseBody List<Long> getAllAuctionIds(Pageable pageable){
+        List<Long> auctionIds = auctionService.getAllAuctionIds(pageable);
+        return auctionIds;
     }
 
     @PostMapping("/")
