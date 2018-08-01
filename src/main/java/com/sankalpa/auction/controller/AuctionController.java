@@ -6,6 +6,8 @@ import com.sankalpa.auction.model.Bid;
 import com.sankalpa.auction.model.User;
 import com.sankalpa.auction.service.AuctionService;
 import com.sankalpa.auction.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +21,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/auctions")
 public class AuctionController {
+
+    Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private AuctionService auctionService;
@@ -63,7 +67,9 @@ public class AuctionController {
     @GetMapping("/{auctionId}/participate")
     public void participate(@PathVariable("auctionId") Long auctionId, Authentication authentication){
         User user = userService.findbyEmail(authentication.getName());
-        auctionService.participate(auctionId, user.getUserId());
+        log.info("User with id " + user.getUserId() + " participates in auction " + auctionId);
+        Long bidderId = user.getUserId();
+        auctionService.participate(auctionId, bidderId);
     }
 
     @Deprecated
@@ -80,12 +86,14 @@ public class AuctionController {
     @GetMapping("/{auctionId}/favorite")
     public void favorite(@PathVariable Long auctionId, Authentication authentication){
         User user = userService.findbyEmail(authentication.getName());
+        log.info("User with id " + user.getUserId() + " participates in auction " + auctionId);
         auctionService.participate(auctionId, user.getUserId());
     }
 
     @GetMapping("/{auctionId}/unfavorite")
     public void unfavorite(@PathVariable Long auctionId, Authentication authentication){
-        User user = (User) authentication.getPrincipal();
+        User user = userService.findbyEmail(authentication.getName());
+        log.info("User with id " + user.getUserId() + " unsubscribes in auction " + auctionId);
         auctionService.unsubscribe(auctionId, user.getUserId());
     }
 }
