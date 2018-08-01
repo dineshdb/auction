@@ -11,6 +11,9 @@ import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -46,10 +49,8 @@ public class AuctionService {
 
 
     // TODO: change all the lists into Set.
-    public List<Auction> getAllAuctions(){
-        List<Auction> auctions = new ArrayList<>();
-        auctionRepository.findAll().forEach(auctions::add);
-        return auctions;
+    public Page<Auction> getAllAuctions(Pageable pageable){
+        return auctionRepository.findAll(pageable);
     }
 
 
@@ -57,9 +58,11 @@ public class AuctionService {
         return auctionRepository.findAllByAuctionDate(today);
     }
 
-    public List<Long> getAllAuctionIds(){
+    public List<Long> getAllAuctionIds(Pageable pageable){
+        Page<Auction> pages = getAllAuctions(pageable);
+        List<Auction> auctions = pages.getContent();
+
         List<Long> auctionIds = new ArrayList<>();
-        List<Auction> auctions = getAllAuctions();
         for (Auction auction : auctions){
             auctionIds.add(auction.getAuctionId());
         }
