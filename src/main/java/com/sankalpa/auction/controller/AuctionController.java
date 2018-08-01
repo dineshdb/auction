@@ -5,8 +5,10 @@ import com.sankalpa.auction.model.Auction;
 import com.sankalpa.auction.model.Bid;
 import com.sankalpa.auction.model.User;
 import com.sankalpa.auction.service.AuctionService;
+import com.sankalpa.auction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +19,9 @@ public class AuctionController {
 
     @Autowired
     private AuctionService auctionService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
     public @ResponseBody List<Long> getAllAuctionIds(){
@@ -53,7 +58,7 @@ public class AuctionController {
     @Deprecated
     @GetMapping("/{auctionId}/participate")
     public void participate(@PathVariable("auctionId") Long auctionId, Authentication authentication){
-        User user = (User) authentication.getPrincipal();
+        User user = userService.findbyEmail(authentication.getName());
         Long bidderId = user.getUserId();
         auctionService.participate(auctionId, bidderId);
     }
@@ -71,9 +76,10 @@ public class AuctionController {
 
     @GetMapping("/{auctionId}/favorite")
     public void favorite(@PathVariable Long auctionId, Authentication authentication){
-        User user = (User) authentication.getPrincipal();
+        User user = userService.findbyEmail(authentication.getName());
         auctionService.participate(auctionId, user.getUserId());
     }
+
     @GetMapping("/{auctionId}/unfavorite")
     public void unfavorite(@PathVariable Long auctionId, Authentication authentication){
         User user = (User) authentication.getPrincipal();
