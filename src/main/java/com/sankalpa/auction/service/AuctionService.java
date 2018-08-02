@@ -57,7 +57,8 @@ public class AuctionService {
 
 
     public Set<Auction> getAllAuctionOnDate(LocalDate today) {
-        return auctionRepository.findAllByAuctionDate(today);
+        HashSet<Auction> auctions = new HashSet<>(auctionRepository.findAllByAuctionDate(today));
+        return auctions;
     }
 
     public Set<Long> getAllAuctionIds(Pageable pageable){

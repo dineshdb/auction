@@ -9,5 +9,5 @@ import java.util.Set;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
-    public Set<Auction> findAllByAuctionDate(LocalDate today);
+    List<Auction> findAllByAuctionDate(LocalDate today);
 }

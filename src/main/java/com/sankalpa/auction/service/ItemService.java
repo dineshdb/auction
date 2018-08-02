@@ -52,4 +52,13 @@ public class ItemService {
     public Item getItem(Long itemId){
         return itemRepository.findById(itemId).orElse(null);
     }
+
+    public Set<Long> searchItem(String queryString) {
+        List<Item> items = itemRepository.findByitemName(queryString);
+        Set<Long> itemIds = new HashSet<>();
+        for (Item item : items){
+            itemIds.add(item.getItemId());
+        }
+        return itemIds;
+    }
 }

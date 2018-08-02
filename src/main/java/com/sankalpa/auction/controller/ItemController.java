@@ -40,4 +40,9 @@ public class ItemController {
     public void deleteItem(@PathVariable Long itemId){
         itemService.deleteItem(itemId);
     }
+
+    @GetMapping("/items/query/{queryString}")
+    public Set<Long> searchItem(@PathVariable String queryString){
+        return itemService.searchItem(queryString);
+    }
 }
