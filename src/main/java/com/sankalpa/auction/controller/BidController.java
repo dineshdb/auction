@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class BidController {
@@ -15,7 +16,7 @@ public class BidController {
     private BidService bidService;
 
     @GetMapping("/bids")
-    public @ResponseBody List<Bid> getAllBids(){
+    public @ResponseBody Set<Bid> getAllBids(){
         return bidService.getAllBids();
     }
 

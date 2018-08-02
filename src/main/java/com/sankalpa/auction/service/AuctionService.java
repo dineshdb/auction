@@ -22,7 +22,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AuctionService {
@@ -54,15 +56,15 @@ public class AuctionService {
     }
 
 
-    public List<Auction> getAllAuctionOnDate(LocalDate today) {
+    public Set<Auction> getAllAuctionOnDate(LocalDate today) {
         return auctionRepository.findAllByAuctionDate(today);
     }
 
-    public List<Long> getAllAuctionIds(Pageable pageable){
+    public Set<Long> getAllAuctionIds(Pageable pageable){
         Page<Auction> pages = getAllAuctions(pageable);
         List<Auction> auctions = pages.getContent();
 
-        List<Long> auctionIds = new ArrayList<>();
+        Set<Long> auctionIds = new HashSet<>();
         for (Auction auction : auctions){
             auctionIds.add(auction.getAuctionId());
         }
@@ -143,7 +145,7 @@ public class AuctionService {
 
                     categories.add(category);
                 }
-                item.setItemCategories(categories);
+                item.setItemCategories(new HashSet<>(categories));
 
                 // update the item finally
                 item.setAuction(auction);
@@ -153,7 +155,7 @@ public class AuctionService {
             }
 
         // set items for auction
-        auction.setItems(items);
+        auction.setItems(new HashSet<>(items));
         return updateAuction(auction);
     }
 
@@ -168,7 +170,7 @@ public class AuctionService {
         userService.updateUser(bidder);
     }
 
-    public List<Bid> allBids(Long auctionId){
+    public Set<Bid> allBids(Long auctionId){
         Auction auction = getAuction(auctionId);
         return auction.getBids();
     }

@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -21,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/")
-    public @ResponseBody List<User> getAllUsers(){
+    public @ResponseBody Set<User> getAllUsers(){
         return userService.getAllUsers();
     }
 
@@ -60,7 +61,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/favorites")
-    public @ResponseBody List<Long> favorites(@PathVariable Long userId){
+    public @ResponseBody Set<Long> favorites(@PathVariable Long userId){
         return userService.favorites(userId);
     }
 }

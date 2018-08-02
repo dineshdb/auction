@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ItemService {
@@ -24,8 +26,8 @@ public class ItemService {
         return itemRepository.findAll(pageable);
     }
 
-    public List<Long> getAllItemIds(Pageable pageable){
-        List<Long> itemIds = new ArrayList<>();
+    public Set<Long> getAllItemIds(Pageable pageable){
+        Set<Long> itemIds = new HashSet<>();
         Page<Item> pages = getAllItems(pageable);
         List<Item> items = pages.getContent();
 

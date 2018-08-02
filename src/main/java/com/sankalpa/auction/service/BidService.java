@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class BidService {
@@ -32,8 +34,8 @@ public class BidService {
     @Autowired
     private LiveUpdateController liveUpdateController;
 
-    public List<Bid> getAllBids(){
-        List<Bid> bids = new ArrayList<>();
+    public Set<Bid> getAllBids(){
+        Set<Bid> bids = new HashSet<>();
         bidRepository.findAll().forEach(bids::add);
         return bids;
     }

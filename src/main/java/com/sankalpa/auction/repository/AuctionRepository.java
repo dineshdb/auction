@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
-    public List<Auction> findAllByAuctionDate(LocalDate today);
+    public Set<Auction> findAllByAuctionDate(LocalDate today);
 }

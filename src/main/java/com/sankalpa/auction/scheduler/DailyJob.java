@@ -35,7 +35,7 @@ public class DailyJob implements Job {
 
         logger.info("Getting all the events happening at day " + LocalDate.now());
 
-        List<Auction> allAuctionsOnDate = auctionService.getAllAuctionOnDate(LocalDate.now());
+        List<Auction> allAuctionsOnDate = new ArrayList<>(auctionService.getAllAuctionOnDate(LocalDate.now()));
         List<Auction> unScheduledAcutions = new ArrayList<>();
         List<Auction> scheduledAuctions = scheduledAuctionsService.getScheduledList();
         List<Long> scheduledAuctionIds = scheduledAuctionsService.getScheduledAuctionsIds();

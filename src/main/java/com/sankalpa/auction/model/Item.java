@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "itemId")
@@ -26,7 +28,7 @@ public class Item {
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "itemId"), inverseJoinColumns = @JoinColumn(name = "categoryId"))
-    private List<Category> itemCategories;
+    private Set<Category> itemCategories;
 
     @ManyToOne
     private User seller;
@@ -35,7 +37,7 @@ public class Item {
     private Auction auction;
 
     @OneToMany(mappedBy = "item", targetEntity = Bid.class, cascade = CascadeType.REMOVE)
-    private List<Bid> bids;
+    private Set<Bid> bids;
 
     protected Item(){}
 
@@ -54,14 +56,14 @@ public class Item {
         this.image = image;
     }
 
-    public List<Bid> getBids() {
+    public Set<Bid> getBids() {
         if (bids == null){
-            bids = new ArrayList<>();
+            bids = new HashSet<>();
         }
         return bids;
     }
 
-    public void setBids(List<Bid> bids) {
+    public void setBids(Set<Bid> bids) {
         this.bids = bids;
     }
 
@@ -89,14 +91,14 @@ public class Item {
         this.itemState = itemState;
     }
 
-    public List<Category> getItemCategories() {
+    public Set<Category> getItemCategories() {
         if (itemCategories == null){
-            itemCategories = new ArrayList<>();
+            itemCategories = new HashSet<>();
         }
         return itemCategories;
     }
 
-    public void setItemCategories(List<Category> itemCategories) {
+    public void setItemCategories(Set<Category> itemCategories) {
         this.itemCategories = itemCategories;
     }
 

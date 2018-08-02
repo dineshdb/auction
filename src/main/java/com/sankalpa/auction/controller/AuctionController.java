@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/auctions")
@@ -31,8 +32,8 @@ public class AuctionController {
     private UserService userService;
 
     @GetMapping("/")
-    public @ResponseBody List<Long> getAllAuctionIds(Pageable pageable){
-        List<Long> auctionIds = auctionService.getAllAuctionIds(pageable);
+    public @ResponseBody Set<Long> getAllAuctionIds(Pageable pageable){
+        Set<Long> auctionIds = auctionService.getAllAuctionIds(pageable);
         return auctionIds;
     }
 
@@ -79,7 +80,7 @@ public class AuctionController {
     }
 
     @GetMapping("/{auctionId}/bids")
-    public List<Bid> allBids(@PathVariable Long auctionId){
+    public Set<Bid> allBids(@PathVariable Long auctionId){
         return auctionService.allBids(auctionId);
     }
 

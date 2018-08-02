@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AdminService {
@@ -14,8 +16,8 @@ public class AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
-    public List<Admin> getAllAdmins(){
-        List<Admin> admins = new ArrayList<>();
+    public Set<Admin> getAllAdmins(){
+        Set<Admin> admins = new HashSet<>();
         adminRepository.findAll().forEach(admins::add);
         return admins;
     }
