@@ -17,9 +17,9 @@ public class AuctionEventJobService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public void executeSampleJob(Long auctionId) {
+    public void executeSampleJob(Long auctionId, String message) {
 
-        logger.info("The auction event job with auciton id {} has begun...", auctionId);
-        liveUpdateController.sendAuctionId(auctionId, "STARTED");
+        logger.info("The auction event job with auciton id " + auctionId + " has " + message + "ed...");
+        liveUpdateController.sendAuctionId(auctionId, message);
     }
 }

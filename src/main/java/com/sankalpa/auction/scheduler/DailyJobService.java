@@ -36,14 +36,14 @@ public class DailyJobService {
         // TODO: fire individual event jobs here for every event
 
         for (Auction auction : auctionList){
-            JobDataMap dataMap = new JobDataMap();
 
             LocalTime time = LocalTime.parse(auction.getAuctionTime());
 //            LocalTime duration = LocalTime.parse(auction.getAuctionDuration());
 //            LocalTime endTime = time.plusSeconds(duration.getSecond())
 //                    .plusMinutes(duration.getMinute())
 //                    .plusHours(duration.getHour());
-            LocalTime endTime = LocalTime.parse(auction.getAuctionDuration());
+            Long duration = Long.valueOf(auction.getAuctionDuration());
+            LocalTime endTime = time.plusSeconds(duration);
 
             String startDateStr = auction.getAuctionDate() + " " + time.toString();
             String endDateStr = auction.getAuctionDate() + " " + endTime.toString();
@@ -58,11 +58,24 @@ public class DailyJobService {
                 e.printStackTrace();
             }
 
-            dataMap.put("auctionId", auction.getAuctionId());
-            dataMap.put("startTime", auction.getAuctionTime());
+            JobDataMap startDataMap = new JobDataMap();
 
-            JobDetail jobDetail = JobBuilder.newJob(AuctionEventJob.class)
-                    .setJobData(dataMap)
+            startDataMap.put("auctionId", auction.getAuctionId());
+            startDataMap.put("startTime", auction.getAuctionTime());
+            startDataMap.put("message", "start");
+
+            JobDetail startJobDetail = JobBuilder.newJob(AuctionEventJob.class)
+                    .setJobData(startDataMap)
+                    .build();
+
+            JobDataMap endDataMap = new JobDataMap();
+
+            endDataMap.put("auctionId", auction.getAuctionId());
+            endDataMap.put("endTime", endTime.toString());
+            endDataMap.put("message", "end");
+
+            JobDetail endJobDetail = JobBuilder.newJob(AuctionEventJob.class)
+                    .setJobData(endDataMap)
                     .build();
 
             // this here is real comment
@@ -82,17 +95,25 @@ public class DailyJobService {
 //            triggerBean.setJobDetail(jobDetail);
 //            triggerBean.setStartTime(Time.valueOf(time));
 
-            Trigger trigger = TriggerBuilder.newTrigger()
-                    .forJob(jobDetail)
+            Trigger startTrigger = TriggerBuilder.newTrigger()
+                    .forJob(startJobDetail)
                     .startAt(startDate)
-                    .endAt(endDate)
+                    //.endAt(endDate)
                     //.withSchedule(scheduleBuilder)
                     .build();
 
-            logger.info(trigger.getStartTime().toString());
+            Trigger endTrigger = TriggerBuilder.newTrigger()
+                    .forJob(endJobDetail)
+                    .startAt(endDate)
+                    //.endAt(endDate)
+                    //.withSchedule(scheduleBuilder)
+                    .build();
+
+            logger.info(startTrigger.getStartTime().toString());
             try {
                 //scheduler.scheduleJob(jobDetail, trigger);
-                scheduler.getScheduler().scheduleJob(jobDetail, trigger);
+                scheduler.getScheduler().scheduleJob(startJobDetail, startTrigger);
+                scheduler.getScheduler().scheduleJob(endJobDetail, endTrigger);
             } catch (SchedulerException e) {
                 e.printStackTrace();
             }

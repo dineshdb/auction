@@ -97,7 +97,10 @@ public class AuctionService {
         LocalTime auctionTime = LocalTime.parse(auctionHolder.getAuctionTime());
         LocalDate auctionDate = LocalDate.parse(auctionHolder.getAuctionDate());
         String auctionDetails = auctionHolder.getAuctionDetails();
-        LocalTime auctionDuration = LocalTime.parse(auctionHolder.getAuctionDuration());
+
+        // TODO: pass duration in number of seconds
+        //LocalTime auctionDuration = LocalTime.parse(auctionHolder.getAuctionDuration());
+        Long auctionDuration = Long.valueOf(auctionHolder.getAuctionDuration());
         Auction auction = addAuction(new Auction(auctionName, auctionTime, auctionDate, auctionDetails,
                 auctionDuration));
 

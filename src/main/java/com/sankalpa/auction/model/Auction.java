@@ -26,7 +26,7 @@ public class Auction {
     private LocalTime auctionTime;
     private LocalDate auctionDate;
     private String auctionDetails;
-    private LocalTime auctionDuration;
+    private Long auctionDuration;
 
     @ManyToOne
     private User seller;
@@ -50,11 +50,11 @@ public class Auction {
         this.auctionTime = LocalTime.parse(auctionTime);
         this.auctionDate = LocalDate.parse(auctionDate);
         this.auctionDetails = auctionDetails;
-        this.auctionDuration = LocalTime.parse(auctionDuration);
+        this.auctionDuration = Long.valueOf(auctionDuration);
     }
 
     public Auction(String auctionName, LocalTime auctionTime, LocalDate auctionDate, String auctionDetails,
-                   LocalTime auctionDuration) {
+                   Long auctionDuration) {
         this.auctionName = auctionName;
         this.auctionTime = auctionTime;
         this.auctionDate = auctionDate;
@@ -70,7 +70,7 @@ public class Auction {
         this.auctionDate = auctionDate;
     }
 
-    public void setAuctionDuration(LocalTime auctionDuration) {
+    public void setAuctionDuration(Long auctionDuration) {
         this.auctionDuration = auctionDuration;
     }
 
@@ -160,6 +160,6 @@ public class Auction {
     }
 
     public void setAuctionDuration(String auctionDuration) {
-        this.auctionDuration = LocalTime.parse(auctionDuration);
+        this.auctionDuration = Long.valueOf(auctionDuration);
     }
 }
