@@ -37,4 +37,9 @@ public class CategoryController {
     public void deleteCategory(@PathVariable Long categoryId){
         categoryService.deleteCategory(categoryId);
     }
+
+    @GetMapping("/categories/{categoryId}/items")
+    public @ResponseBody List<Long> getItemsByCategory(@PathVariable Long categoryId){
+        return categoryService.getItemsByCategory(categoryId);
+    }
 }

@@ -1,6 +1,7 @@
 package com.sankalpa.auction.service;
 
 import com.sankalpa.auction.model.Category;
+import com.sankalpa.auction.model.Item;
 import com.sankalpa.auction.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,19 @@ public class CategoryService {
 
     public Category getCategory(Long categoryId){
         return categoryRepository.findById(categoryId).orElse(null);
+    }
+
+    // returns only the id of items in the given category
+    public List<Long> getItemsByCategory(Long categoryId) {
+
+        Category category = getCategory(categoryId);
+        List<Item> items = category.getItems();
+
+        List<Long> itemIds = new ArrayList<>();
+        for (Item item : items){
+            itemIds.add(item.getItemId());
+        }
+
+        return itemIds;
     }
 }

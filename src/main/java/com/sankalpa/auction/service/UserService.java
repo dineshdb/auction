@@ -54,13 +54,18 @@ public class UserService {
 
     public List<Long> favorites(Long userId) {
         User user = getUser(userId);
-        List<Auction> auctions = user.getAuctionsParticipated();
+        if (user != null) {
+            List<Auction> auctions = user.getAuctionsParticipated();
 
-        List<Long> auctionIds = new ArrayList<>();
-        for (Auction auction : auctions){
-            auctionIds.add(auction.getAuctionId());
+            List<Long> auctionIds = new ArrayList<>();
+            for (Auction auction : auctions) {
+                auctionIds.add(auction.getAuctionId());
+            }
+            return auctionIds;
+        } else {
+            log.info("User Id is null in /users/{userId}/favorites");
+            return new ArrayList<Long>();
         }
-        return auctionIds;
     }
 
 }

@@ -28,18 +28,18 @@ public class DatabaseLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // add a list of common states an item can be in
-        stateRepository.save(new State("LIVE"));
-        stateRepository.save(new State("READY"));
-        stateRepository.save(new State("SOLD"));
-
-        // add a list of common categories an item can be associated with
-        categoryRepository.save(new Category("Movie Prop"));
-        categoryRepository.save(new Category("Painting"));
-        categoryRepository.save(new Category("Antique"));
-        categoryRepository.save(new Category("Gadget"));
-        categoryRepository.save(new Category("Automobile"));
-        categoryRepository.save(new Category("Jewellery"));
+//        // add a list of common states an item can be in
+//        stateRepository.save(new State("LIVE"));
+//        stateRepository.save(new State("READY"));
+//        stateRepository.save(new State("SOLD"));
+//
+//        // add a list of common categories an item can be associated with
+//        categoryRepository.save(new Category("Movie Prop"));
+//        categoryRepository.save(new Category("Painting"));
+//        categoryRepository.save(new Category("Antique"));
+//        categoryRepository.save(new Category("Gadget"));
+//        categoryRepository.save(new Category("Automobile"));
+//        categoryRepository.save(new Category("Jewellery"));
 
 //        adminRepository.save(new Admin("admin", passwordEncoder.encode("admin")));
 //        userRepository.save(new User("atosh502@gmail.com", passwordEncoder.encode("passw0rd")));

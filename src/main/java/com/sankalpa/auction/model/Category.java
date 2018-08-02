@@ -14,6 +14,7 @@ public class Category {
     @GeneratedValue
     private Long categoryId;
 
+    @Column(unique = true, nullable = false)
     private String categoryName;
 
     @ManyToMany(targetEntity = Item.class)
@@ -24,6 +25,10 @@ public class Category {
     public Category(Long categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+    }
+
+    public void setItem(Item item){
+        this.items.add(item);
     }
 
     public Category(String categoryName) {

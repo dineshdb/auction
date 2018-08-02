@@ -14,6 +14,7 @@ public class State {
     @GeneratedValue
     private int stateId;
 
+    @Column(unique = true, nullable = false)
     private String stateName;
 
     @OneToMany(mappedBy = "itemState", targetEntity = Item.class)

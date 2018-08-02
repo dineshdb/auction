@@ -135,7 +135,13 @@ public class AuctionService {
                 // add categories
                 List<Category> categories = new ArrayList<>();
                 for (Long cat : itemCategories) {
-                    categories.add(categoryService.getCategory(cat));
+
+                    Category category = categoryService.getCategory(cat);
+                    category.setItem(item);
+
+                    categoryService.updateCategory(category);
+
+                    categories.add(category);
                 }
                 item.setItemCategories(categories);
 
