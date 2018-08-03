@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class StateService {
@@ -14,8 +16,8 @@ public class StateService {
     @Autowired
     private StateRepository stateRepository;
 
-    public List<State> getAllStates(){
-        List<State> states = new ArrayList<>();
+    public Set<State> getAllStates(){
+        Set<State> states = new HashSet<>();
         stateRepository.findAll().forEach(states::add);
         return states;
     }

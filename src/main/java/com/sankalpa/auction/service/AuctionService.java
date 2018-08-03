@@ -22,7 +22,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AuctionService {
@@ -49,23 +51,25 @@ public class AuctionService {
 
 
     // TODO: change all the lists into Set.
-    public Page<Auction> getAllAuctions(Pageable pageable){
-        return auctionRepository.findAll(pageable);
+    public List<Auction> getAllAuctions(){
+        return auctionRepository.findAll();
     }
 
 
-    public List<Auction> getAllAuctionOnDate(LocalDate today) {
-        return auctionRepository.findAllByAuctionDate(today);
+    public Set<Auction> getAllAuctionOnDate(LocalDate today) {
+        HashSet<Auction> auctions = new HashSet<>(auctionRepository.findAllByAuctionDate(today));
+        return auctions;
     }
 
-    public List<Long> getAllAuctionIds(Pageable pageable){
-        Page<Auction> pages = getAllAuctions(pageable);
-        List<Auction> auctions = pages.getContent();
+    public Set<Long> getAllAuctionIds(){
 
-        List<Long> auctionIds = new ArrayList<>();
+        List<Auction> auctions = getAllAuctions();
+
+        Set<Long> auctionIds = new HashSet<>();
         for (Auction auction : auctions){
             auctionIds.add(auction.getAuctionId());
         }
+
         return auctionIds;
     }
 
@@ -94,7 +98,10 @@ public class AuctionService {
         LocalTime auctionTime = LocalTime.parse(auctionHolder.getAuctionTime());
         LocalDate auctionDate = LocalDate.parse(auctionHolder.getAuctionDate());
         String auctionDetails = auctionHolder.getAuctionDetails();
-        LocalTime auctionDuration = LocalTime.parse(auctionHolder.getAuctionDuration());
+
+        // TODO: pass duration in number of seconds
+        //LocalTime auctionDuration = LocalTime.parse(auctionHolder.getAuctionDuration());
+        Long auctionDuration = Long.valueOf(auctionHolder.getAuctionDuration());
         Auction auction = addAuction(new Auction(auctionName, auctionTime, auctionDate, auctionDetails,
                 auctionDuration));
 
@@ -135,9 +142,15 @@ public class AuctionService {
                 // add categories
                 List<Category> categories = new ArrayList<>();
                 for (Long cat : itemCategories) {
-                    categories.add(categoryService.getCategory(cat));
+
+                    Category category = categoryService.getCategory(cat);
+                    category.setItem(item);
+
+                    categoryService.updateCategory(category);
+
+                    categories.add(category);
                 }
-                item.setItemCategories(categories);
+                item.setItemCategories(new HashSet<>(categories));
 
                 // update the item finally
                 item.setAuction(auction);
@@ -147,7 +160,7 @@ public class AuctionService {
             }
 
         // set items for auction
-        auction.setItems(items);
+        auction.setItems(new HashSet<>(items));
         return updateAuction(auction);
     }
 
@@ -162,7 +175,7 @@ public class AuctionService {
         userService.updateUser(bidder);
     }
 
-    public List<Bid> allBids(Long auctionId){
+    public Set<Bid> allBids(Long auctionId){
         Auction auction = getAuction(auctionId);
         return auction.getBids();
     }

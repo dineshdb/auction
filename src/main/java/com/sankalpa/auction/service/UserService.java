@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -22,8 +20,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> getAllUsers(){
-        List<User> users = new ArrayList<>();
+    public Set<User> getAllUsers(){
+        Set<User> users = new HashSet<>();
         userRepository.findAll().forEach(users::add);
         return users;
     }
@@ -52,15 +50,20 @@ public class UserService {
         return userRepository.findByUserEmail(userEmail);
     }
 
-    public List<Long> favorites(Long userId) {
+    public Set<Long> favorites(Long userId) {
         User user = getUser(userId);
-        List<Auction> auctions = user.getAuctionsParticipated();
+        if (user != null) {
+            Set<Auction> auctions = user.getAuctionsParticipated();
 
-        List<Long> auctionIds = new ArrayList<>();
-        for (Auction auction : auctions){
-            auctionIds.add(auction.getAuctionId());
+            Set<Long> auctionIds = new HashSet<>();
+            for (Auction auction : auctions) {
+                auctionIds.add(auction.getAuctionId());
+            }
+            return auctionIds;
+        } else {
+            log.info("User Id is null in /users/{userId}/favorites");
+            return new HashSet<>();
         }
-        return auctionIds;
     }
 
 }

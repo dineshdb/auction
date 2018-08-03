@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class ItemController {
@@ -15,9 +16,14 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
+//    @GetMapping("/items")
+//    public @ResponseBody Set<Long> getAllItemIds(Pageable pageable){
+//        return itemService.getAllItemIds(pageable);
+//    }
+
     @GetMapping("/items")
-    public @ResponseBody List<Long> getAllItemIds(Pageable pageable){
-        return itemService.getAllItemIds(pageable);
+    public @ResponseBody Set<Long> getAllItemIds(){
+      return itemService.getAllItemIds();
     }
 
     @GetMapping("/items/{itemId}")
@@ -38,5 +44,10 @@ public class ItemController {
     @DeleteMapping("/items/{itemId}")
     public void deleteItem(@PathVariable Long itemId){
         itemService.deleteItem(itemId);
+    }
+
+    @GetMapping("/items/query/{queryString}")
+    public Set<Long> searchItem(@PathVariable String queryString){
+        return itemService.searchItem(queryString);
     }
 }

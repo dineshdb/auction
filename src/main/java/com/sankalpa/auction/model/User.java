@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Inheritance( strategy = InheritanceType.SINGLE_TABLE )
@@ -31,19 +32,19 @@ public class User {
 
     @OneToMany(mappedBy = "seller", targetEntity = Item.class, cascade = CascadeType.REMOVE)
     @JsonIgnore
-    private List<Item> items;
+    private Set<Item> items;
 
     @JsonIgnore
     @OneToMany(mappedBy = "seller", targetEntity = Auction.class, cascade = CascadeType.REMOVE)
-    private List<Auction> auctionsCreated;
+    private Set<Auction> auctionsCreated;
 
     @JsonIgnore
     @OneToMany(mappedBy = "bidder", targetEntity = Bid.class, cascade = CascadeType.REMOVE)
-    private List<Bid> bids;
+    private Set<Bid> bids;
 
     @JsonIgnore
     @ManyToMany(targetEntity = Auction.class)
-    private List<Auction> auctionsParticipated;
+    private Set<Auction> auctionsParticipated;
 
     protected User(){}
 
@@ -83,27 +84,27 @@ public class User {
         return val == null ? null : val.value();
     }
 
-    public List<Auction> getAuctionsCreated() {
+    public Set<Auction> getAuctionsCreated() {
         return auctionsCreated;
     }
 
-    public void setAuctionsCreated(List<Auction> auctionsCreated) {
+    public void setAuctionsCreated(Set<Auction> auctionsCreated) {
         this.auctionsCreated = auctionsCreated;
     }
 
-    public List<Bid> getBids() {
+    public Set<Bid> getBids() {
         return bids;
     }
 
-    public void setBids(List<Bid> bids) {
+    public void setBids(Set<Bid> bids) {
         this.bids = bids;
     }
 
-    public List<Auction> getAuctionsParticipated() {
+    public Set<Auction> getAuctionsParticipated() {
         return auctionsParticipated;
     }
 
-    public void setAuctionsParticipated(List<Auction> auctionsParticipated) {
+    public void setAuctionsParticipated(Set<Auction> auctionsParticipated) {
         this.auctionsParticipated = auctionsParticipated;
     }
 
@@ -115,11 +116,11 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(Set<Item> items) {
         this.items = items;
     }
 

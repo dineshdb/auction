@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "categoryId")
@@ -14,10 +15,11 @@ public class Category {
     @GeneratedValue
     private Long categoryId;
 
+    @Column(unique = true, nullable = false)
     private String categoryName;
 
     @ManyToMany(targetEntity = Item.class)
-    private List<Item> items;
+    private Set<Item> items;
 
     protected Category(){}
 
@@ -26,15 +28,19 @@ public class Category {
         this.categoryName = categoryName;
     }
 
+    public void setItem(Item item){
+        this.items.add(item);
+    }
+
     public Category(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(Set<Item> items) {
         this.items = items;
     }
 

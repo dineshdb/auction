@@ -20,7 +20,10 @@ public class AuctionEventJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        logger.info("AuctionEvent job ** {} ** fired @ {}", context.getJobDetail().getKey().getName(), context.getFireTime());
-        auctionEventJobService.executeSampleJob(context.getMergedJobDataMap().getLong("auctionId"));
+        logger.info("AuctionEvent job ** {} ** fired @ {}", context.getJobDetail().getKey().getName(),
+                context.getFireTime());
+
+        String msg = context.getMergedJobDataMap().getString("message");
+        auctionEventJobService.executeSampleJob(context.getMergedJobDataMap().getLong("auctionId"), msg);
     }
 }

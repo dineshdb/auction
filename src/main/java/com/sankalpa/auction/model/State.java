@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "stateId")
@@ -14,10 +15,11 @@ public class State {
     @GeneratedValue
     private int stateId;
 
+    @Column(unique = true, nullable = false)
     private String stateName;
 
     @OneToMany(mappedBy = "itemState", targetEntity = Item.class)
-    private List<Item> items;
+    private Set<Item> items;
 
     protected State(){}
 
@@ -30,17 +32,17 @@ public class State {
         this.stateName = stateName;
     }
 
-    public State(int stateId, String stateName, List<Item> items) {
+    public State(int stateId, String stateName, Set<Item> items) {
         this.stateId = stateId;
         this.stateName = stateName;
         this.items = items;
     }
 
-    public List<Item> getItem() {
+    public Set<Item> getItem() {
         return items;
     }
 
-    public void setItem(List<Item> items) {
+    public void setItem(Set<Item> items) {
         this.items = items;
     }
 

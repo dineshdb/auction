@@ -9,7 +9,9 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "auctionId")
@@ -24,20 +26,20 @@ public class Auction {
     private LocalTime auctionTime;
     private LocalDate auctionDate;
     private String auctionDetails;
-    private LocalTime auctionDuration;
+    private Long auctionDuration;
 
     @ManyToOne
     private User seller;
 
     @OneToMany(mappedBy = "auction", targetEntity = Bid.class, cascade = CascadeType.REMOVE)
-    private List<Bid> bids;
+    private Set<Bid> bids;
 
     @OneToMany(mappedBy = "auction", targetEntity = Item.class, cascade = CascadeType.REMOVE)
-    private List<Item> items;
+    private Set<Item> items;
 
     @ManyToMany(targetEntity = User.class)
     @JoinTable(joinColumns = @JoinColumn(name = "auction_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> bidders;
+    private Set<User> bidders;
 
     public Auction(){}
 
@@ -48,11 +50,11 @@ public class Auction {
         this.auctionTime = LocalTime.parse(auctionTime);
         this.auctionDate = LocalDate.parse(auctionDate);
         this.auctionDetails = auctionDetails;
-        this.auctionDuration = LocalTime.parse(auctionDuration);
+        this.auctionDuration = Long.valueOf(auctionDuration);
     }
 
     public Auction(String auctionName, LocalTime auctionTime, LocalDate auctionDate, String auctionDetails,
-                   LocalTime auctionDuration) {
+                   Long auctionDuration) {
         this.auctionName = auctionName;
         this.auctionTime = auctionTime;
         this.auctionDate = auctionDate;
@@ -68,7 +70,7 @@ public class Auction {
         this.auctionDate = auctionDate;
     }
 
-    public void setAuctionDuration(LocalTime auctionDuration) {
+    public void setAuctionDuration(Long auctionDuration) {
         this.auctionDuration = auctionDuration;
     }
 
@@ -80,36 +82,36 @@ public class Auction {
         this.seller = seller;
     }
 
-    public List<User> getBidders() {
+    public Set<User> getBidders() {
         if (bidders == null){
-            bidders = new ArrayList<>();
+            bidders = new HashSet<>();
         }
         return bidders;
     }
 
-    public void setBidders(List<User> bidders) {
+    public void setBidders(Set<User> bidders) {
         this.bidders = bidders;
     }
 
-    public List<Bid> getBids() {
+    public Set<Bid> getBids() {
         if (bids == null){
-            bids = new ArrayList<>();
+            bids = new HashSet<>();
         }
         return bids;
     }
 
-    public void setBids(List<Bid> bids) {
+    public void setBids(Set<Bid> bids) {
         this.bids = bids;
     }
 
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         if (items == null){
-            items = new ArrayList<>();
+            items = new HashSet<>();
         }
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(Set<Item> items) {
         this.items = items;
     }
 
@@ -153,11 +155,11 @@ public class Auction {
         this.auctionDetails = auctionDetails;
     }
 
-    public String getAuctionDuration() {
-        return auctionDuration.toString();
+    public Long getAuctionDuration() {
+        return auctionDuration;
     }
 
     public void setAuctionDuration(String auctionDuration) {
-        this.auctionDuration = LocalTime.parse(auctionDuration);
+        this.auctionDuration = Long.valueOf(auctionDuration);
     }
 }

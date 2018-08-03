@@ -41,10 +41,10 @@ public class LiveUpdateController {
     }
 
     @SendTo("/auction/{id}")
-    public void sendAuctionId(@DestinationVariable("id") Long auctionId, String action) {
+    public void sendAuctionId(@DestinationVariable("id") Long auctionId, String message) {
         log.info("auctionId: " + String.valueOf(auctionId));
         //AuctionWatchInfo info = new AuctionWatchInfo(String.valueOf(auctionId), action);
-        template.convertAndSend("/auction/" + auctionId.toString(), "start");
+        template.convertAndSend("/auction/" + auctionId.toString(), message);
 
 //        AuctionWatchInfo info = new AuctionWatchInfo(String.valueOf(auctionId), action);
 //        template.convertAndSend("/auction/watch", info);

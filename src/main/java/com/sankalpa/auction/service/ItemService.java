@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ItemService {
@@ -17,21 +19,21 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public Page<Item> getAllItems(Pageable pageable){
+    public List<Item> getAllItems(){
 //        List<Item> items = new ArrayList<>();
 //        itemRepository.findAll().forEach(items::add);
 //        return items;
-        return itemRepository.findAll(pageable);
+        return itemRepository.findAll();
     }
 
-    public List<Long> getAllItemIds(Pageable pageable){
-        List<Long> itemIds = new ArrayList<>();
-        Page<Item> pages = getAllItems(pageable);
-        List<Item> items = pages.getContent();
+    public Set<Long> getAllItemIds(){
+        Set<Long> itemIds = new HashSet<>();
+        List<Item> items = getAllItems();;
 
         for (Item item : items){
             itemIds.add(item.getItemId());
         }
+
         return itemIds;
     }
 
@@ -49,5 +51,14 @@ public class ItemService {
 
     public Item getItem(Long itemId){
         return itemRepository.findById(itemId).orElse(null);
+    }
+
+    public Set<Long> searchItem(String queryString) {
+        List<Item> items = itemRepository.findByitemName(queryString);
+        Set<Long> itemIds = new HashSet<>();
+        for (Item item : items){
+            itemIds.add(item.getItemId());
+        }
+        return itemIds;
     }
 }

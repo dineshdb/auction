@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class StateController {
@@ -14,7 +15,7 @@ public class StateController {
     private StateService stateService;
 
     @GetMapping("/states")
-    public @ResponseBody List<State> getAllStates(){
+    public @ResponseBody Set<State> getAllStates(){
         return stateService.getAllStates();
     }
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class AdminController {
@@ -14,7 +15,7 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("/admins")
-    public @ResponseBody List<Admin> getAllAdmins(){
+    public @ResponseBody Set<Admin> getAllAdmins(){
         return adminService.getAllAdmins();
     }
 
