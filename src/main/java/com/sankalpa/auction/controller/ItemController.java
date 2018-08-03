@@ -16,9 +16,14 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
+//    @GetMapping("/items")
+//    public @ResponseBody Set<Long> getAllItemIds(Pageable pageable){
+//        return itemService.getAllItemIds(pageable);
+//    }
+
     @GetMapping("/items")
-    public @ResponseBody Set<Long> getAllItemIds(Pageable pageable){
-        return itemService.getAllItemIds(pageable);
+    public @ResponseBody Set<Long> getAllItemIds(){
+      return itemService.getAllItemIds();
     }
 
     @GetMapping("/items/{itemId}")

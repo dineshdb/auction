@@ -32,8 +32,8 @@ public class AuctionController {
     private UserService userService;
 
     @GetMapping("/")
-    public @ResponseBody Set<Long> getAllAuctionIds(Pageable pageable){
-        Set<Long> auctionIds = auctionService.getAllAuctionIds(pageable);
+    public @ResponseBody Set<Long> getAllAuctionIds(){
+        Set<Long> auctionIds = auctionService.getAllAuctionIds();
         return auctionIds;
     }
 

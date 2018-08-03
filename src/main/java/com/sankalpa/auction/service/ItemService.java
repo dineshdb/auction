@@ -19,21 +19,21 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public Page<Item> getAllItems(Pageable pageable){
+    public List<Item> getAllItems(){
 //        List<Item> items = new ArrayList<>();
 //        itemRepository.findAll().forEach(items::add);
 //        return items;
-        return itemRepository.findAll(pageable);
+        return itemRepository.findAll();
     }
 
-    public Set<Long> getAllItemIds(Pageable pageable){
+    public Set<Long> getAllItemIds(){
         Set<Long> itemIds = new HashSet<>();
-        Page<Item> pages = getAllItems(pageable);
-        List<Item> items = pages.getContent();
+        List<Item> items = getAllItems();;
 
         for (Item item : items){
             itemIds.add(item.getItemId());
         }
+
         return itemIds;
     }
 

@@ -51,8 +51,8 @@ public class AuctionService {
 
 
     // TODO: change all the lists into Set.
-    public Page<Auction> getAllAuctions(Pageable pageable){
-        return auctionRepository.findAll(pageable);
+    public List<Auction> getAllAuctions(){
+        return auctionRepository.findAll();
     }
 
 
@@ -61,14 +61,15 @@ public class AuctionService {
         return auctions;
     }
 
-    public Set<Long> getAllAuctionIds(Pageable pageable){
-        Page<Auction> pages = getAllAuctions(pageable);
-        List<Auction> auctions = pages.getContent();
+    public Set<Long> getAllAuctionIds(){
+
+        List<Auction> auctions = getAllAuctions();
 
         Set<Long> auctionIds = new HashSet<>();
         for (Auction auction : auctions){
             auctionIds.add(auction.getAuctionId());
         }
+
         return auctionIds;
     }
 
