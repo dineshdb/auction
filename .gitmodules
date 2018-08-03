@@ -1,3 +1,6 @@
 [submodule "ecommerce-frontend"]
 	path = frontend
 	url = git@github.com:dineshdb/ecommerce-frontend.git
+[submodule "recommendation"]
+	path = recommendation
+	url = git@github.com:dineshdb/auction-recommendation.git
