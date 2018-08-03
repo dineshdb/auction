@@ -6,7 +6,7 @@ services:
         networks:
             - api
         volumes:
-            - ./data/mysql/:/var/lib/mysql
+            - data_mysql:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: auction_user
             MYSQL_DATABASE: auction_db
@@ -46,15 +46,17 @@ services:
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
         restart: always
-        environment:
-            - cluster.name=docker-cluster
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#        environment:
+#            - cluster.name=docker-cluster
+#            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
         volumes:
-            - ./data/es/:/usr/share/elasticsearch/data
+            - data_es:/usr/share/elasticsearch/data
         ports:
             - 9200:9200
+            - 9300:9300
         networks:
             - api
+            - elk
         depends_on:
             - api
 
@@ -64,10 +66,27 @@ services:
         depends_on:
             - elasticsearch
             - db
-        environment:
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#        environment:
+#            - "LS_JAVA_OPTS=-Xms256m -Xmx256m"
+        command: logstash -f /usr/share/logstash/config/logstash.conf
         networks:
-            - api
+            - elk
+        volumes:
+            - ./logstash/config/:/usr/share/logstash/config/:ro
+            - ./logstash/pipeline/:/usr/share/logstash/pipeline/
+
+    kibana:
+        image: docker.elastic.co/kibana/kibana:6.3.2
+        volumes:
+            - ./kibana/:/usr/share/kibana/:ro
+        ports:
+            - 5601:5601
+        networks:
+            - elk
+        depends_on:
+            - elasticsearch
+        environment:
+            - ELASTICSEARCH_URL=http://elasticsearch:9200
 
     recommend:
         image: recommend
@@ -78,7 +97,8 @@ services:
         networks:
             - api
         depends_on:
-            - db    
+            - db
+
 volumes:
     data_es:
         driver: local
@@ -86,3 +106,4 @@ volumes:
         driver: local
 networks:
     api:
+    elk:
