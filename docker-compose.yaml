@@ -68,11 +68,10 @@ services:
             - db
 #        environment:
 #            - "LS_JAVA_OPTS=-Xms256m -Xmx256m"
-        command: logstash -f /usr/share/logstash/config/logstash.conf
         networks:
             - elk
         volumes:
-            - ./logstash/config/:/usr/share/logstash/config/:ro
+#            - ./logstash/config/:/usr/share/logstash/config/:ro
             - ./logstash/pipeline/:/usr/share/logstash/pipeline/
 
 #    kibana:
