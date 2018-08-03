@@ -155,8 +155,8 @@ public class Auction {
         this.auctionDetails = auctionDetails;
     }
 
-    public String getAuctionDuration() {
-        return auctionDuration.toString();
+    public Long getAuctionDuration() {
+        return auctionDuration;
     }
 
     public void setAuctionDuration(String auctionDuration) {
