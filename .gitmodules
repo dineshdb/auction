@@ -4,3 +4,6 @@
 [submodule "recommendation"]
 	path = recommendation
 	url = git@github.com:dineshdb/auction-recommendation.git
+[submodule "reverse-proxy"]
+	path = reverse-proxy
+	url = git@github.com:dineshdb/auction-proxy.git
