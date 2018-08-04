@@ -63,6 +63,13 @@ public class Item {
         return bids;
     }
 
+    public void addItemCategory(Category cat){
+        if (this.itemCategories == null){
+            this.itemCategories = new HashSet<>();
+        }
+        this.itemCategories.add(cat);
+    }
+
     public void setBids(Set<Bid> bids) {
         this.bids = bids;
     }

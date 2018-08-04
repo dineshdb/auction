@@ -68,6 +68,14 @@ public class User {
         this.image = image;
     }
 
+    public User(String userEmail, String userPassword, String userName, String userPhone, String userAddress) {
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userName = userName;
+        this.userPhone = userPhone;
+        this.userAddress = userAddress;
+    }
+
     public User(Long userId, String userEmail, String userPassword, String userName, String userPhone, String userAddress, String image) {
         this.userId = userId;
         this.userEmail = userEmail;
