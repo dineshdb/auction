@@ -1,11 +1,15 @@
 all: run-proxy
 
-update:
+setup-git:
 	git submodule update --init --recursive
 	cd frontend && git checkout master
 	cd recommendation && git checkout master
 
-setup: update setup-front setup-rec setup-proxy setup-train
+update-git:
+	cd frontend && git pull
+	cd recommendation && git pull
+
+setup: setup-git setup-front setup-rec setup-proxy setup-train
 
 setup-front:
 	cd frontend && npm i
