@@ -1,5 +1,7 @@
 package com.sankalpa.auction.service;
 
+import com.sankalpa.auction.Holder.ItemRating;
+import com.sankalpa.auction.Holder.UserRating;
 import com.sankalpa.auction.model.Auction;
 import com.sankalpa.auction.model.Rating;
 import com.sankalpa.auction.repository.RatingRepository;
@@ -52,5 +54,29 @@ public class RatingService {
 
     public void rate(Long userId, Long itemId, int rating){
         addRating(new Rating(userId, itemId, rating));
+    }
+
+    public Rating ratingOfItemByUser(Long userId, Long itemId) {
+        return ratingRepository.findByUserIdAndItemId(userId, itemId);
+    }
+
+    public Set<ItemRating> getItems(Long userId) {
+        List<Rating> ratingList = ratingRepository.findAllByUserId(userId);
+        Set<ItemRating> itemRatings = new HashSet<>();
+
+        for (Rating rating : ratingList){
+            itemRatings.add(new ItemRating(rating.getItemId(), rating.getRating()));
+        }
+        return itemRatings;
+    }
+
+    public Set<UserRating> getUsers(Long itemId) {
+        List<Rating> ratingList = ratingRepository.findAllByItemId(itemId);
+        Set<UserRating> userRatings = new HashSet<>();
+
+        for (Rating rating : ratingList){
+            userRatings.add(new UserRating(rating.getUserId(), rating.getRating()));
+        }
+        return userRatings;
     }
 }
