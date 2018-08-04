@@ -13,6 +13,12 @@ Online web based ecommerce system.
 * Run the project using ``` ./gradlew bootRun```. Go to http://localhost:8080 to see the output.
 * To sync new updates ``git pull --recurse-submodules``.
 
+## Running the app.
+Following steps automagically build required files
+* Run api-server using ``make run-api``.
+* Run recommendation server using ``make run-rec``.
+* Run reverse proxy using ``make proxy-build`` and ``make run-proxy``.
+
 ## Create Database
 Install mysql or mariadb and get into its root shell. Then execute:
 ```mysql
