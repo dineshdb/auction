@@ -1,15 +1,20 @@
 all: run-proxy
 
-setup: setup-front setup-rec setup-proxy setup-train
+update:
+	git submodule update --init --recursive
+	cd frontend && git checkout master
+	cd recommendation && git checkout master
+
+setup: update setup-front setup-rec setup-proxy setup-train
 
 setup-front:
 	cd frontend && npm i
 
 setup-train:
-	cd recommendation && pip install -r requirements.txt
+	cd recommendation && pip install -r requirements.txt --user
 
 setup-rec:
-	cd recommendation && pip install -r requirements-pro.txt
+	cd recommendation && pip install -r requirements-pro.txt --user
 
 setup-proxy:
 	cd reverse-proxy/ && npm i
