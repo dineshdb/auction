@@ -1,0 +1,109 @@
+version: '3.4'
+services:
+    db:
+        image: mariadb
+        restart: always
+        networks:
+            - api
+        volumes:
+            - data_mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: auction_user
+            MYSQL_DATABASE: auction_db
+            MYSQL_USER: auction_user
+            MYSQL_PASSWORD: ThePassword
+        expose:
+            - 3306
+
+    api:
+        image: auction
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 8080:8080
+        env_file:
+            - setenv.sh
+        networks:
+            - api
+        depends_on:
+            - db
+        environment:
+            APP_NAME: Online Auction System
+            DB_PROVIDER: mysql
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_DATABASE: auction_db
+            DB_USER: auction_user
+            DB_PASSWORD: ThePassword
+            PORT: 8080
+            SENDGRID_API_KEY: Pt2F8PqIQfeSx1GIoZCk0w
+            SENDGRID_API_SECRET: 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
+            GOOGLE_API_KEY: 612731025295-qai62u7v6lfksjmmgsdejlfb25bdsear.apps.googleusercontent.com
+            GOOGLE_API_SECRET: Z5Yctb2W224UuN2KlS6wFYvo 
+
+#    elasticsearch:
+#        image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+#        restart: always
+#        environment:
+#            - cluster.name=docker-cluster
+#            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#        volumes:
+#            - data_es:/usr/share/elasticsearch/data
+#            - ./config:/usr/share/elasticsearch/config/
+#        ports:
+#            - 9200:9200
+#            - 9300:9300
+#        networks:
+#            - api
+#            - elk
+#        depends_on:
+#            - api
+#
+#    logstash:
+#        image: logstash
+#        restart: always
+#        build:
+#            context: .
+#            dockerfile: Dockerfile-logstash
+#        depends_on:
+#            - elasticsearch
+#            - db
+#        environment:
+#            - "LS_JAVA_OPTS=-Xms256m -Xmx256m"
+#        networks:
+#            - elk
+
+#    kibana:
+#        image: docker.elastic.co/kibana/kibana:6.3.2
+#        volumes:
+#            - ./kibana/:/usr/share/kibana/:ro
+#        ports:
+#            - 5601:5601
+#        networks:
+#            - elk
+#        depends_on:
+#            - elasticsearch
+#        environment:
+#            - ELASTICSEARCH_URL=http://elasticsearch:9200
+
+#    recommend:
+#        image: recommend
+#        restart: always
+#        build:
+#            context: recommendation/
+#            dockerfile: Dockerfile
+#        networks:
+#            - api
+#        depends_on:
+#            - db
+
+volumes:
+    data_es:
+        driver: local
+    data_mysql:
+        driver: local
+networks:
+    api:
+    elk:

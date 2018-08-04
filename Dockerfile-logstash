@@ -1,0 +1,5 @@
+FROM docker.elastic.co/logstash/logstash:6.3.2
+RUN logstash-plugin install logstash-input-jdbc
+COPY logstash.conf /usr/share/logstash/pipeline/logstash.conf
+COPY logstash.yml /usr/share/logstash/config/logstash.yml
+CMD ["-f", "/usr/share/logstash/pipeline/logstash.conf"]
