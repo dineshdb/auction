@@ -12,13 +12,13 @@ app.use(express.static('public'))
 
 app.all("/api/*", (req, res) => {
       req.url = req.url.replace("/api/", "/")
-      console.log("Redirecting to api", req)
+//      console.log("Redirecting to api", req)
       apiProxy.web(req, res, { target: apiServer})
 })
 
 app.all("/recommend/*", (req, res) => {
       req.url = req.url.replace("/recommend/", "/")
-      console.log("Redirecting to recommendor")
+//      console.log("Redirecting to recommendor")
       apiProxy.web(req, res, { target: recommendationServer})
 })
 

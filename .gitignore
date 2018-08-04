@@ -2,7 +2,7 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 /uploads
-
+reverse-proxy/public
 ### STS ###
 .apt_generated
 .classpath
