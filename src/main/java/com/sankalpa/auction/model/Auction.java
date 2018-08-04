@@ -53,6 +53,15 @@ public class Auction {
         this.auctionDuration = Long.valueOf(auctionDuration);
     }
 
+    public Auction(String auctionName, String auctionTime,
+                   String auctionDate, String auctionDetails, String auctionDuration) {
+        this.auctionName = auctionName;
+        this.auctionTime = LocalTime.parse(auctionTime);
+        this.auctionDate = LocalDate.parse(auctionDate);
+        this.auctionDetails = auctionDetails;
+        this.auctionDuration = Long.valueOf(auctionDuration);
+    }
+
     public Auction(String auctionName, LocalTime auctionTime, LocalDate auctionDate, String auctionDetails,
                    Long auctionDuration) {
         this.auctionName = auctionName;
@@ -109,6 +118,13 @@ public class Auction {
             items = new HashSet<>();
         }
         return items;
+    }
+
+    public void addItem(Item item){
+        if (this.items == null){
+            this.items = new HashSet<>();
+        }
+        this.items.add(item);
     }
 
     public void setItems(Set<Item> items) {
