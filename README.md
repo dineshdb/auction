@@ -15,9 +15,10 @@ Online web based ecommerce system.
 
 ## Running the app.
 Following steps automagically build required files
+* Setup all dependencies using ``make setup``
 * Run api-server using ``make run-api``.
 * Run recommendation server using ``make run-rec``.
-* Run reverse proxy using ``make proxy-build`` and ``make run-proxy``.
+* Run reverse proxy using ``make run-proxy``.
 
 ## Create Database
 Install mysql or mariadb and get into its root shell. Then execute:

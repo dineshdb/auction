@@ -1,23 +1,40 @@
 all: run-proxy
 
-api:
+setup: setup-front setup-rec setup-proxy setup-train
+
+setup-front:
+	cd frontend && npm i
+
+setup-train:
+	cd recommendation && pip install -r requirements.txt
+
+setup-rec:
+	cd recommendation && pip install -r requirements-pro.txt
+
+setup-proxy:
+	cd reverse-proxy/ && npm i
+
+train:
+	cd recommendation && python3 recommend.py
+
+build-api:
 	./gradlew build
 
-front:
+build-front:
 	cd frontend && npm run build
 
-run-api: api
+run-api: build-api
 	source ./setenv.sh && java -jar build/libs/auction-0.0.1-SNAPSHOT.jar
 
 run-rec:
 	cd recommendation && python3 app.py
 
-proxy-build: front
+build-proxy: build-front
 	rm -rf reverse-proxy/public
 	mkdir reverse-proxy/public
 	cp -rf frontend/build/* reverse-proxy/public/
 	
-run-proxy:
+run-proxy: build-proxy
 	cd reverse-proxy && npm run start
 
-proxy: proxy-build
+proxy: build-proxy

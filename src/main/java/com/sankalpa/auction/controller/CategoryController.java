@@ -14,7 +14,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/categories")
+    @GetMapping("/categories/")
     public @ResponseBody Set<Category> getAllCategories(){
         return categoryService.getAllCategories();
     }
@@ -24,12 +24,12 @@ public class CategoryController {
         return categoryService.getCategory(categoryId);
     }
 
-    @PostMapping("/categories")
+    @PostMapping("/categories/")
     public @ResponseBody Category addCategory(@RequestBody Category newCategory){
         return categoryService.addCategory(newCategory);
     }
 
-    @PutMapping("/categories")
+    @PutMapping("/categories/")
     public @ResponseBody Category updateCategory(@RequestBody Category updatedCategory){
         return categoryService.updateCategory(updatedCategory);
     }
