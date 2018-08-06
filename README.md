@@ -32,6 +32,6 @@ mysql> grant all on auction_db.* to 'auction_user'@'localhost'; -- Gives all the
 
 ## Authors
 * **[Aashutosh Poudel](https://github.com/atosh502)** <aashutoshpoudyal@gmail.com>
-* **[Dinesh Bhattarai](https://github.com/dineshdb)** <dbhattarai252@gmail.com> 
+* **[Dinesh Bhattarai](https://dbhattarai.info.np)** <dbhattarai252@gmail.com> 
 * **[Jeevan Thapa](https://github.com/jeevan9111)** <jeevanthapa9111@gmail.com>
 * **[Rupesh Shrestha](https://github.com/rupesh1439)** <rupesh.shrestha96742@gmail.com>
